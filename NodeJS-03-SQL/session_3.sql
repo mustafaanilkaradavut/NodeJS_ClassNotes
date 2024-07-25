@@ -26,3 +26,8 @@ SELECT a.AlbumId, ar."Name" as 'Artist Name'
 --? COUNT -- Kayıt Sayısı
 SELECT count(*) AS 'Records' FROM "Album";
 SELECT count("AlbumId") FROM "Album";   -- Buradaki kullanım performansa daha uygun çünkü tek bir kolon üzerinden işlem yapar.
+
+--? SUM -- Toplam
+SELECT * FROM Invoice;
+SELECT sum(Total) FROM "Invoice";
+SELECT * FROM Invoice WHERE BillingCountry IN ('USA', 'Canada');
