@@ -31,3 +31,19 @@ SELECT count("AlbumId") FROM "Album";   -- Buradaki kullanım performansa daha u
 SELECT * FROM Invoice;
 SELECT sum(Total) FROM "Invoice";
 SELECT * FROM Invoice WHERE BillingCountry IN ('USA', 'Canada');
+
+--? AVG -- Ortalama
+SELECT avg(Total) FROM "Invoice";
+
+--? MIN -- Minumum Değer
+SELECT min(Total) FROM "Invoice";
+
+--? MAX -- Maximum Değer
+SELECT max(Total) FROM "Invoice";
+
+--? ROUND -- Yuvarlama
+SELECT round(avg(Total),2) FROM "Invoice";
+
+--? LENGTH -- Karakter Sayısı (Kayıt sayısını tek satıra düşürmez. Her kaydın karakter sayısını aynı satıra yazar.)
+SELECT Title, length(Title) FROM Album;
+
