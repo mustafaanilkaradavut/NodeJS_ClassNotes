@@ -54,3 +54,13 @@
     > .exit
 
 ```
+
+### node -v / npm-v  
+### npm init -y
+### npm list ( yüklü olan modüller )
+### npm i express
+### Projeyi değil developer'ı ilgilendiren bir modül ise :  npm i nodemon --save-dev
+### Proje bize geldi node_modules veya json.lock bizde yok ise direk şunu yaparız :     npm i
+### Yukarıdaki işlemde developer'ın kullandığı modülü indirmek istemezsek :     npm i --omit-dev
+### Global bir modül lazımsa yani tüm projelerde kullanılacak bir modül ise :     npm i -g nodemon
+### Global bir modül silmek için :     npm unistall -g nodemon
