@@ -64,3 +64,4 @@
 ### Yukarıdaki işlemde developer'ın kullandığı modülü indirmek istemezsek :     npm i --omit-dev
 ### Global bir modül lazımsa yani tüm projelerde kullanılacak bir modül ise :     npm i -g nodemon
 ### Global bir modül silmek için :     npm unistall -g nodemon
+### Sudo uyarısı eğer sürekli alıyorsak :        sudo chmod -R 777 /Users/mustafaanilkaradavut/.npm-global/lib
