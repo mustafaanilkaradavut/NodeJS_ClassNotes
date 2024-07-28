@@ -115,8 +115,43 @@ const testPart = testArray.slice(3, 5);
 
 //* Rest Operator (...) - Toplayıcı Operatör (Eşittir ifadesinin sol tarafındaki REST operatördür.)
 const [var0, var1, ...varPar] = testArray;
-console.log(var0, var1, varPar);
+// console.log(var0, var1, varPar);
 
 //* Spread Operatör ( Dağıtıcı/Serpiştirici ) ( Eşittir ifadesinin sağ tarafındaki spread operatörüdür.)
 const newArr = [...testArray, "value5", "value6"];
-console.log(newArr);
+// console.log(newArr);
+
+/* -------------------------------------------------------------------------- */
+
+//* Object Desturcturing
+
+const Car3 = {
+  brand: "Mercedes",
+  model: "E30",
+  year: 2005,
+  isAutoGear: false,
+  colors: ["black", "white"],
+  details: {
+    color1: "black",
+    color2: "white",
+    engineSize: 3400,
+  },
+  startEngine: function (param = "1") {
+    console.log(param);
+    return "Engine started";
+  },
+};
+
+// REST Operator (Key isimleri önemlidir.)
+// const { brand, year, model, ...others } = Car3;
+// console.log(brand, year, model, others);
+
+// İsim Değiştirmek
+const { brand, year, model: newName, ...others } = Car3;
+// console.log(brand, year, newName, others);
+
+//Spread Operatör
+const newOb = { ...Car3, newKey: "newValue" };
+// console.log(newOb);
+
+/* -------------------------------------------------------------------------- */
