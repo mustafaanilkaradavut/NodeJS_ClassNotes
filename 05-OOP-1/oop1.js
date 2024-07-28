@@ -122,7 +122,6 @@ const newArr = [...testArray, "value5", "value6"];
 // console.log(newArr);
 
 /* -------------------------------------------------------------------------- */
-
 //* Object Desturcturing
 
 const Car3 = {
@@ -155,3 +154,70 @@ const newOb = { ...Car3, newKey: "newValue" };
 // console.log(newOb);
 
 /* -------------------------------------------------------------------------- */
+//* Object to JSON
+
+// console.log(typeof Car3, Car3);
+
+const json = JSON.stringify(Car3);
+// console.log(typeof json, json);
+
+//* JSON to Object
+
+const obj = JSON.parse(json);
+// console.log(obj);
+
+//* Array to JSON
+
+const arr = Object.keys(Car3);
+// const arr = Object.values(Car3);
+// const arr = Object.entries(Car3); // Hem key hem value değerlerini verir. //__ enumareType
+// console.log(arr);
+
+const arrToJSON = JSON.stringify(arr);
+// console.log(arrToJSON);
+
+const jsonToArr = JSON.parse(arrToJSON);
+// console.log(typeof jsonToArr, jsonToArr);
+
+// console.log(typeof null, null);
+// console.log(typeof "string", "string");
+// console.log(typeof 1234, 1234);
+// console.log(typeof true, true);
+// console.log(typeof undefined, undefined);
+// console.log(typeof [], []);
+// console.log(typeof {}, {});
+// console.log(typeof function () {}, function () {});
+
+const test = String("new-value");
+console.log(typeof test, test);
+//__ Class'tan türetilen her şey bir objedir.
+
+/* -------------------------------------------------------------------------- */
+//* CONTRUCTOR FUNCTIONS:
+
+// const contructorFunction = function () {
+//   this.property = "value";
+// };
+
+/* -------------------------------------------------------------------------- */
+//* 'NEW' Keyword
+
+const carConstructor = function (brand, model, year = 2000) {
+  this.brand = brand;
+  this.model = model;
+  this.year = year;
+
+  this.startEngine = function () {
+    // console.log( this )
+    return "Engine started.";
+  };
+};
+
+//__ new ile oluşturulan objeler PascalCase ile isimlendirilir.
+const Ford = new carConstructor("Ford", "Mustang", 1967);
+console.log(Ford);
+
+const Mercedes = new carConstructor("Mercedes", "CLK200", 2015);
+console.log(Mercedes);
+console.log(Mercedes.brand);
+console.log(Mercedes.startEngine());
