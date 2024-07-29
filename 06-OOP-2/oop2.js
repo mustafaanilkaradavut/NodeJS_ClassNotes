@@ -128,4 +128,66 @@ class Accessory extends Car2 {
 
 const Audi = new Car2("Audi", "A4", 2015, "Car2");
 const BoshClimate = new Accessory("Bosh Climate", ...Object.values(Audi));
-console.log(BoshClimate);
+// console.log(BoshClimate);
+
+/* -------------------------------------------------------------------------- */
+//.. Polymorphism: Miras aldığımız sınıfın özellik/methodlarını yeniden yazabilme.
+//__ - Override: Üst metodla aynı isim ve yapıda yeni bir metod yazma. (ezme / iptal etme / önceliğini alma)
+//__ - Overload: Üst metodla aynı isimde ama farklı yapıda (farklı adet/tip) yeni method oluşturma. (aynı anda ikisi de aktif) (JS desteklemez)
+
+class CustomerVehicle {
+  vehicleIsActive = false;
+
+  constructor(vehicleType) {
+    this.vehicleType = vehicleType;
+  }
+
+  getDetails() {
+    console.log("CustomerVehicle Class getDetails()");
+    return this;
+  }
+}
+
+class CustomerCar extends CustomerVehicle {
+  isRunning = false;
+
+  constructor(brand, model, year, vehicleType) {
+    super(vehicleType);
+    this.brand = brand;
+    this.model = model;
+    this.year = year;
+  }
+
+  runEngine() {
+    this.isRunning = true;
+    console.log("Engine started");
+    return this.isRunning;
+  }
+
+  // Override: Parent classtaki methodu aynı isimle tekrar tanımlama.
+  // Override işlemi parent classtaki methodu ezer (önceliğini alır)
+  getDetails() {
+    console.log("CustomerCar Class getDetails()");
+    super.getDetails(); // Bu kod ile super ile ezdiğimiz kısmı da çalıştırırız. (overload)
+  }
+
+  //? Overload: Üstteki methodun aynı isim ama farklı parametre adet/tip ile yeniden tanımlanması.
+  //? JS Desteklemez. TypeScript destekler.
+  //? Çalışma prensibi: Çağrıldığı zaman parametreye göre ilgili method çalışır.
+
+  // getDetails(parametre1, parameter2) {
+  //     return this
+  // }
+}
+
+const Peugeot = new CustomerCar("Peugeot", "308", 2001, "CustomerCar");
+// console.log(Peugeot);
+// console.log(Peugeot.getDetails());
+
+/* -------------------------------------------------------------------------- */
+//.. Access Modifiers:
+//? - PUBLIC: Genel erişime açık. (Parent: Yes, Child: Yes, Instance: Yes)
+//? - _PROTECTED: Sadece tanımlı olduğu class ve Inherit edilen child-class erişebilir. (Parent: Yes, Child: Yes, Instance: No) (JS Desteklemez.)
+//? - #PRIVATE: Sadece tanımlı olduğu class içinde erişim var. (Parent: Yes, Child: No, Instance: No)
+
+
