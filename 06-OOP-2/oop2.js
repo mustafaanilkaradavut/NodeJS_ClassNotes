@@ -43,6 +43,7 @@ const NewObj = new PascalNameCase();
 class Car {
   isRunning = false;
 
+  // ? "new Class" ile obje oluştururken parametre göndermek için "constructor" isminde bir method kullanırız.
   constructor(brand, model, year = 1999) {
     this.brand = brand;
     this.model = model;
@@ -73,3 +74,58 @@ const Renault = new Car("Renault", "Megane", "2010");
 // console.log(Renault);
 
 /* -------------------------------------------------------------------------- */
+//__ INHERITANCE = MirasAlma. Başka bir classın tüm property/methodlarını devralma (parent-child kurulur.)
+//__ SUPER = Parent Class, THIS = Child (Current) Class
+
+class Vehicle {
+  vehicleIsActive = false;
+
+  constructor(vehicleType) {
+    this.vehicleType = vehicleType;
+  }
+}
+
+class Car2 extends Vehicle {
+  isRunning = false;
+
+  // constructor(brand, model, year = 1999) {
+  //   super("Car2");
+  //   this.brand = brand;
+  //   this.model = model;
+  //   this.year = year;
+  // }
+
+  constructor(brand, model, year, vehicleType) {
+    super(vehicleType);
+    this.brand = brand;
+    this.model = model;
+    this.year = year;
+  }
+
+  runEngine() {
+    this.isRunning = true;
+    console.log("Engine Started");
+    return this.isRunning;
+  }
+}
+
+// class Truck extends Vehicle {...}
+
+// const HarleyDavidson = new Car2("Harley Davidson", "Chapper", 2020);
+// console.log(HarleyDavidson);
+// const HarleyDavidson = new Car2("Harley Davidson", "Chapper", 2020, "Car2");
+// console.log(HarleyDavidson);
+
+class Accessory extends Car2 {
+  constructor(accessoryName, brand, model, year, vehicleType) {
+    super(brand, model, year, vehicleType);
+    this.accessoryName = accessoryName;
+  }
+}
+
+// const BoshClimate = new Accessory("Bosh Climate", "Audi", "A4", 2015, "Car2");
+// console.log(BoshClimate);
+
+const Audi = new Car2("Audi", "A4", 2015, "Car2");
+const BoshClimate = new Accessory("Bosh Climate", ...Object.values(Audi));
+console.log(BoshClimate);
