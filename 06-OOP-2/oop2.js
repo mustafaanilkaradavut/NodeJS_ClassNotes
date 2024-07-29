@@ -184,11 +184,11 @@ const Peugeot = new CustomerCar("Peugeot", "308", 2001, "CustomerCar");
 // console.log(Peugeot);
 // console.log(Peugeot.getDetails());
 
-/* -------------------------------------------------------------------------- */
-//.. Access Modifiers:
-//? - PUBLIC: Genel erişime açık. (Parent: Yes, Child: Yes, Instance: Yes)
-//? - _PROTECTED: Sadece tanımlı olduğu class ve Inherit edilen child-class erişebilir. (Parent: Yes, Child: Yes, Instance: No) (JS Desteklemez.)
-//? - #PRIVATE: Sadece tanımlı olduğu class içinde erişim var. (Parent: Yes, Child: No, Instance: No)
+/* -------------------------------------------------------------------------- *
+.. Access Modifiers:
+? - PUBLIC: Genel erişime açık. (Parent: Yes, Child: Yes, Instance: Yes)
+? - _PROTECTED: Sadece tanımlı olduğu class ve Inherit edilen child-class erişebilir. (Parent: Yes, Child: Yes, Instance: No) (JS Desteklemez.)
+? - #PRIVATE: Sadece tanımlı olduğu class içinde erişim var. (Parent: Yes, Child: No, Instance: No)
 
 class Category {
   publicProp = "parent-child-instance erişebilir.";
@@ -234,3 +234,50 @@ const Adidas = new Jersey("Argentina", "Blue White", 2023, "Jersey");
 // console.log(Ford)
 console.log(Adidas.runCategory());
 console.log(Adidas.categoryIsActive); // public: erişebilir, protected: erişemez, private: erişemez.
+
+/* -------------------------------------------------------------------------- *
+Piyasa Standartları
+
+ * const BUYUK_HARF_ISIMLENDIRME = Bu bir constant değişkendir. Developer olarak bunu silme, değiştirirken dikkatli ol.
+ * const _alttanTireIleBaslayan = BU bir proctected değişkendir. Developer olarak buna dokunma (erişme bile)
+
+/* -------------------------------------------------------------------------- */
+//? GETTER & SETTER METHODS: Görevi veri getirme (getter) ve veri güncelleme (setter) olan metodlardır.
+//? "STATIC" KEYWORD: Class'dan direkt erişim. (Instance erişemez.)
+
+class Jersey {
+  isRunning = false;
+  #price = 99;
+
+  constructor(brand, model, year) {
+    this.brand = brand;
+    this.model = model;
+    this.year = year;
+  }
+
+  runCategory() {
+    this.isRunning = true;
+    console.log("Category uptated");
+    return this.isRunning;
+  }
+  get getPrice() {
+    console.log("Printing Price");
+    return this.#price;
+  }
+
+  set setPrice(price) {
+    console.log("Price has been uptated");
+    this.#price = price;
+  }
+}
+
+const Adidas = new Jersey("Argentina", "Blue White", 2023);
+console.log(Adidas);
+// console.log(Adidas.price); // Private olduğu için erişilemez.
+// console.log(Adidas.getPrice()); // Normal Method
+console.log(Adidas.getPrice); // Getter methodlar bir property gibi çağrılır. (parantez yok)
+// Adidas.setPrice(135); // Normal Method
+Adidas.setPrice = 135; // Setter methodlar bir propertyy gibi güncellenebilir.
+console.log(Adidas.getPrice);
+
+
