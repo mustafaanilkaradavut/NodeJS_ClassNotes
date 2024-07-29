@@ -37,8 +37,9 @@ const NewObj = new PascalNameCase();
 // console.log(NewObj.methodName());
 
 /* -------------------------------------------------------------------------- */
-//* Contructor Method:
+//* Constructor Method:
 
+//* Class'lar soyuttur. Template - Şablondur.
 class Car {
   isRunning = false;
 
@@ -53,7 +54,22 @@ class Car {
     console.log("Engine Started");
     return this.isRunning;
   }
+  newMethod() {
+    this.runEngine;
+  }
 }
 
+//* Instated somuttur. Template kullanarak ortaya bir şey çıkartırız.
 const Ford = new Car("Ford", "Mustang", 1967); //__ Buradaki Car() parantez contructor'u ifade ediyor.
-console.log(Ford);
+// console.log(Ford);
+// Ford.newMethod();
+// console.log(Ford.isRunning);
+// Ford.runEngine();
+// console.log(Ford.isRunning);
+
+const Mercedes = new Car("Mercedes", "CLK300", 2020);
+// console.log(Mercedes);
+const Renault = new Car("Renault", "Megane", "2010");
+// console.log(Renault);
+
+/* -------------------------------------------------------------------------- */
