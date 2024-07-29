@@ -269,15 +269,34 @@ class Jersey {
     console.log("Price has been uptated");
     this.#price = price;
   }
+
+  //__ Statics
+  static staticProp = "Bu bir static değerdir.";
+
+  static staticMethod() {
+    return "bu bir static methoddur.";
+  }
 }
 
 const Adidas = new Jersey("Argentina", "Blue White", 2023);
-console.log(Adidas);
+// console.log(Adidas);
 // console.log(Adidas.price); // Private olduğu için erişilemez.
 // console.log(Adidas.getPrice()); // Normal Method
-console.log(Adidas.getPrice); // Getter methodlar bir property gibi çağrılır. (parantez yok)
+// console.log(Adidas.getPrice); // Getter methodlar bir property gibi çağrılır. (parantez yok)
 // Adidas.setPrice(135); // Normal Method
-Adidas.setPrice = 135; // Setter methodlar bir propertyy gibi güncellenebilir.
-console.log(Adidas.getPrice);
+// Adidas.setPrice = 135; // Setter methodlar bir propertyy gibi güncellenebilir.
+// console.log(Adidas.getPrice);
 
+/* -------------------------------------------------------------------------- */
+//* STATICS
+// Static değerlere sadece ana CLASS ile erişilebilir.
+console.log(Jersey.staticProp);
+console.log(Jersey.staticMethod());
+console.log(Jersey);
+// Static özellik/metodlara instance ile erişilemez.
+console.log(Adidas.staticProp);
 
+/* -------------------------------------------------------------------------- */
+//? ABSTRACTION: Soyutlama/Modelleme (Class ile obje üretebilme. Aynı amaç için kullanılan değişken ve methodların bir class içinde yazıyor olması)
+//? ENCAPCULLATION: Kapsülleme/Ayrıştırma (Kodların gizliliği, private değişkenlere erişilemiyor olması ve birbirinden bağımsız çalışmaları.)
+/* -------------------------------------------------------------------------- */
