@@ -190,4 +190,47 @@ const Peugeot = new CustomerCar("Peugeot", "308", 2001, "CustomerCar");
 //? - _PROTECTED: Sadece tanımlı olduğu class ve Inherit edilen child-class erişebilir. (Parent: Yes, Child: Yes, Instance: No) (JS Desteklemez.)
 //? - #PRIVATE: Sadece tanımlı olduğu class içinde erişim var. (Parent: Yes, Child: No, Instance: No)
 
+class Category {
+  publicProp = "parent-child-instance erişebilir.";
+  _proctectedProp = "parent-child erişebilir.";
+  #privateProp = "parent erişebilir.";
 
+  categoryIsActive = false;
+
+  constructor(categoryType) {
+    this.categoryType = categoryType;
+  }
+
+  getDetails() {
+    console.log("Category Class getDetails()");
+    return this;
+  }
+}
+
+class Jersey extends Category {
+  isRunning = false;
+
+  constructor(brand, model, year, categoryType) {
+    super(categoryType);
+    this.brand = brand;
+    this.model = model;
+    this.year = year;
+  }
+
+  runCategory() {
+    this.isRunning = true;
+    console.log("Category uptated");
+    console.log(this.categoryIsActive); // public: erişebilir, protected: erişebilir, private: erişemez.
+    return this.isRunning;
+  }
+
+  getDetails() {
+    console.log("Jersey Class getDetails()");
+    super.getDetails();
+  }
+}
+
+const Adidas = new Jersey("Argentina", "Blue White", 2023, "Jersey");
+// console.log(Ford)
+console.log(Adidas.runCategory());
+console.log(Adidas.categoryIsActive); // public: erişebilir, protected: erişemez, private: erişemez.
