@@ -13,7 +13,7 @@
 // const test = require("./modules/");
 // test();
 
-// require("./modules")();
+// require("./modules")(); //* Shorthand
 
 /* -------------------------------------------------------------------------- */
 //__ Çoklu Function Kullanımı
@@ -36,7 +36,8 @@
 // objFunc.test3();
 
 //? Object Destructuring
-const { test1, test3: func3, test2 } = require("./modules");
+const { test1, test3: func3, test2, newVar } = require("./modules");
 test1();
 test2();
 func3();
+console.log(newVar);
