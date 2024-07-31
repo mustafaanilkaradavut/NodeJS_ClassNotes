@@ -1,12 +1,15 @@
 {
   "name": "07-nodemodules",
   "version": "1.0.0",
-  "main": "module.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "HOST=localhost PORT=1234 node index"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
 }
