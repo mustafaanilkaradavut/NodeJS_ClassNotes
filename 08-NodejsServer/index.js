@@ -68,6 +68,13 @@ const app = http
       // console.log(req.method); //__ GET, POST gibi işlemlerden hangisinin çalıştığını gösterir.
 
       if (req.method == "GET") {
+        //__ res.writeHead ile response kısmındaki düzenlemeleri gerçekleştirebiliriz. ( multi headers )
+        res.setHeader("title", "value"); //__ setHeader (single headers)
+        res.writeHead(400, "Wrong Process", {
+          //__ sonda olması gerekiyor. single öncelikli.
+          "multi-header": "test",
+        });
+
         const obj = {
           result: true,
           message: "Hello World",
