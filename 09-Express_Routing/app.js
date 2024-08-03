@@ -78,8 +78,27 @@ app.listen(PORT, () => console.log("Running: http://127.0.0.1:" + PORT));
 // });
 
 //__ ROUTE METHOD:
-app.route('/')
-    .get((req, res) => { res.end('app.get is working')})
-    .post((req, res) => { res.end('app.post is working')})
-    .put((req, res) => { res.end('app.put is working')})
-    .delete((req, res) => { res.end('app.delete is working')})
+// app.route('/')
+//     .get((req, res) => { res.end('app.get is working')})
+//     .post((req, res) => { res.end('app.post is working')})
+//     .put((req, res) => { res.end('app.put is working')})
+//     .delete((req, res) => { res.end('app.delete is working')})
+
+/* -------------------------------------------------------------------------- */
+//__ URL (path) Options:
+
+// app.get('/', (req, res) => { res.send('Here is Main Page')}) // / == Anasayfa (home path)
+// app.get('/path', (req, res) => { res.send('Here is "path" page')}) // "/path" == "/path/"
+
+//? Express Joker karakterleri destekler: (RexExp kuralları ile aynı)
+// app.get('/abc(x?)123', (req, res) => { res.send('now in here: /abc(x?)123')}) // abc123 == abcx123
+// app.get('/abc(x+)123', (req, res) => { res.send('now in here: /abc(x+)123')}) // abcx..x123
+// app.get('/abc123(x+)', (req, res) => { res.send('now in here: /abc123(x+)')}) // abcx..x123
+// app.get('/abc*123', (req, res) => { res.send('now in here: /abc*123')}) // abc123 == abc(ANY)123
+
+//? Express RegularExpression destekler:
+// app.get(/xyz/, (req, res) => { res.send('now in here: /xyz/')}) // içinde xyz geçen url'yi kabul et.
+// app.get(/xyz$/, (req, res) => { res.send('now in here: /xyz$/')}) // xyz ile biten url'yi kabul et.
+// app.get(/^\/xyz/, (req, res) => { res.send('now in here: /^\/xyz/')}) // xyz ile biten url'yi kabul et.
+
+/* -------------------------------------------------------------------------- */
