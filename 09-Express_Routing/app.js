@@ -9,7 +9,7 @@
 
 const express = require("express");
 const app = express();
-
+/* -------------------------------------------------------------------------- *
 //? Express olmadan URL sorgulama yöntemi aşağıdaki gibidir :
 // http.createServer((req, res) => {
 //     if (req.url = '/') {
@@ -22,7 +22,30 @@ const app = express();
 
 //? Express ile URL sorgulama :
 app.get("/", (req, res) => {
-  res.end("app.get is working");
+  // res.end("app.get is working");
+  // const obj = {
+  //   error: false,
+  //   message: "welcome",
+  // };
+  // res.end(JSON.stringify(obj));
+  //__ Send Method :
+  // res.send({
+  //   error: false,
+  //   message: "Welcome",
+  // });
+
+  //__ Status Method:
+  // res.status(404);
+  // res.send({
+  //   error: false,
+  //   message: "Page Not Found",
+  // });
+
+  //__ Output:
+  res.status(404).send({
+    error: false,
+    message: "Page Not Found",
+  });
 });
 app.post("/", (req, res) => {
   res.end("app.post is working");
@@ -34,6 +57,8 @@ app.delete("/", (req, res) => {
   res.end("app.delete is working");
 });
 
+/* -------------------------------------------------------------------------- */
+
 //? dotenv çalıştır :
 require("dotenv").config();
 const PORT = process.env.PORT || 8000;
@@ -41,3 +66,20 @@ const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => console.log("Running: http://127.0.0.1:" + PORT));
 
 /* -------------------------------------------------------------------------- */
+
+// app.get('/', (req, res) => { res.end('app.get is working')})
+// app.post('/', (req, res) => { res.end('app.post is working')})
+// app.put('/', (req, res) => { res.end('app.put is working')})
+// app.delete('/', (req, res) => { res.end('app.delete is working')})
+
+//__ ALL METHOD:
+// app.all("/", (req, res) => {
+//   res.end("app.all is working");
+// });
+
+//__ ROUTE METHOD:
+app.route('/')
+    .get((req, res) => { res.end('app.get is working')})
+    .post((req, res) => { res.end('app.post is working')})
+    .put((req, res) => { res.end('app.put is working')})
+    .delete((req, res) => { res.end('app.delete is working')})
