@@ -17,32 +17,59 @@ const PORT = process.env.PORT || 8000;
 //? Middleware:
 
 //* Geçebilirsiniz - geçemezsin gibi parametreleri kullanmamızı sağlayan next'tir.
+// app.get("/", (req, res, next) => {
+//   console.log("Middleware is working");
+
+//__ Next işlemi bir sonraki route'a havale eder.
+// next();
+
+//__ next bir sonraki route gideceği için sonrasının bir önemi yok.
+// res.send({
+//   message: "middleware",
+// });
+
+//   if (req.query.courseName == "clarusway") {
+//     next();
+//   } else {
+//     res.send({
+//       message: "Course name is wrong",
+//     });
+//   }
+// });
+
+// //? Route - Path:
+// app.get("/", (req, res) => {
+//   console.log("Route-Path is working");
+
+//   res.send({
+//     message: "Hellod Middleware",
+//   });
+// });
+
+/* -------------------------------------------------------------------------- */
+
 app.get("/", (req, res, next) => {
-  console.log("Middleware is working");
+  console.log("middleware is working");
 
-  //__ Next işlemi bir sonraki route'a havale eder.
-  // next();
-
-  //__ next bir sonraki route gideceği için sonrasının bir önemi yok.
-  // res.send({
-  //   message: "middleware",
-  // });
-
-  if (req.query.courseName == "clarusway") {
-    next();
+  //__ Bir sonraki controller'a data gönderme:
+  // req:
+  req.message = "Hello world from middleware";
+  // res:
+  if (req.query.course == "clarusway") {
+    res.message = "You are in the correct place";
   } else {
-    res.send({
-      message: "Course name is wrong",
-    });
+    res.message = "Are you doing true ?";
   }
+  next();
 });
 
-//? Route - Path:
+//? Route-Path:
 app.get("/", (req, res) => {
-  console.log("Route-Path is working");
+  console.log("route-path is working.");
 
   res.send({
-    message: "Hellod Middleware",
+    // message: req.message
+    message: res.message,
   });
 });
 
