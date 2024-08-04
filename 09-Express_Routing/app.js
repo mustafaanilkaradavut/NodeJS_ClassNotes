@@ -102,3 +102,21 @@ app.listen(PORT, () => console.log("Running: http://127.0.0.1:" + PORT));
 // app.get(/^\/xyz/, (req, res) => { res.send('now in here: /^\/xyz/')}) // xyz ile biten url'yi kabul et.
 
 /* -------------------------------------------------------------------------- */
+
+//__ URL Parameters:
+
+app.get("/*", (req, res) => {
+  res.send({
+    url: {
+      protocol: req.protocol,
+      secure: req.secure,
+      hostname: req.hostname,
+      // baseUrl: req.baseUrl, // artık req.url geçerli
+      params: req.params,
+      query: req.query, // Sadece query verir. (path vermez.)
+      path: req.path, // Sadece subfolder (/name/name1/name2) verir. (query vermez)
+      originalUrl: req.originalUrl, // URL'yi tümüyle verir.
+      url: req.url, // Router URL'sini verir.
+    },
+  });
+});
