@@ -123,12 +123,21 @@ app.listen(PORT, () => console.log("Running: http://127.0.0.1:" + PORT));
 /* -------------------------------------------------------------------------- */
 //__ URL User Path:    (URL'de gönderdiğimiz user'ı yakalamak)
 
-app.get("/user/:userId/config/:process", (req, res) => {
+// app.get("/user/:userId/config/:process", (req, res) => {
+//   res.send({
+//     userId: req.params.userId,
+//     process: req.params.process,
+//     url: {
+//       params: req.params,
+//     },
+//   });
+// });
+
+// app.get('/user/:userId([0-9]+)', (req, res) => {
+app.get("/user/:userId(\\d+)", (req, res) => {
   res.send({
+    path: req.path,
     userId: req.params.userId,
-    process: req.params.process,
-    url: {
-      params: req.params,
-    },
+    abc: req.query.abc,
   });
 });
