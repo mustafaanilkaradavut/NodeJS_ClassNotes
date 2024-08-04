@@ -141,3 +141,29 @@ app.get("/user/:userId(\\d+)", (req, res) => {
     abc: req.query.abc,
   });
 });
+
+/* -------------------------------------------------------------------------- */
+//__ Response.Methods:
+
+//? sendStatus():
+// app.get('/', (req, res) => { res.sendStatus(404) })
+//? status():
+// app.get('/', (req, res) => { res.status(200).send({ message: 'OK' }) })
+// app.post('/', (req, res) => { res.status(201).send({ message: 'Created' }) })
+// app.put('/', (req, res) => { res.status(202).send({ message: 'Updated' }) })
+// app.patch('/', (req, res) => { res.status(202).send({ message: 'Updated' }) })
+// app.delete('/', (req, res) => { res.status(204).send({ message: 'Deleted' }) })
+//? json() (send() methodunu kullanabiliriz)
+// app.get('/', (req, res) => { res.json({ message: 'OK' }) })
+//? download():
+// app.get('/download', (req, res) => { res.download('./readme.md') })
+// app.get('/download', (req, res) => { res.download('./readme.md', 'newName.txt') })
+//? sendFile():
+// console.log(__dirname)
+// app.get('/package', (req, res) => { res.sendFile(__dirname + '/package.json') }) //* dosya yolu TAM (gerçek) olmalı
+//? redirect()
+app.get("/clarusway", (req, res) => {
+  res.redirect("https://clarusway.com");
+}); // Varsayılan 302'dir
+// app.get('/301', (req, res) => { res.redirect(301, 'https://clarusway.com') }) //* Kalıcı yönlendirme yapar. Hafızada tutar.
+// app.get('/302', (req, res) => { res.redirect(302, 'https://google.com') }) //* Geçici yönlendirme yapar.
