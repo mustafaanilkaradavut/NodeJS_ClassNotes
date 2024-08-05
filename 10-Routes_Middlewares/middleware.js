@@ -110,18 +110,19 @@ app.get("/", (req, res) => {
 /* -------------------------------------------------------------------------- */
 
 // app.get('/', (req, res, next) => {
-//     console.log('middleware-1 çalıştı.')
+//     console.log('middleware-1 is working.')
 //     next()
 // })
 
+//* Ayrı bir fonksiyon olarak yazabilir, bu sayede başka bir dosyada çağırabiliriz.
 // const middleware1 = (req, res, next) => {
-//     console.log('middleware-1 çalıştı.')
+//     console.log('middleware-1 is working.')
 //     next()
 //     next('route')
 // }
 
 // const middleware2 = (req, res, next) => {
-//     console.log('middleware-2 çalıştı.')
+//     console.log('middleware-2 is working.')
 //     next()
 // }
 
@@ -129,7 +130,7 @@ app.get("/", (req, res) => {
 //? use ile middleware çağırabiliriz:
 // app.use(middleware1)
 // app.use(middleware2)
-//? Tek use içinde virgülle ayırp kullanabiliriz:
+//? Tek use içinde virgülle ayırıp kullanabiliriz:
 // app.use(middleware1, middleware2)
 // app.use(middleware2, middleware1)
 //? Array içinde çağırabiliz:
