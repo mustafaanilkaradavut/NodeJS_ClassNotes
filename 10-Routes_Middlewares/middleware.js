@@ -155,4 +155,34 @@ app.get("/", (req, res) => {
 // })
 
 /* -------------------------------------------------------------------------- */
+//__ Ayrı dosyadan çağırma:
+
+// const middlewares = require('./middlewares/') // Array
+// const { middleware1, middleware2, middleware3 } = require('./middlewares/') // Object
+
+// app.get('/*', middleware1, middleware2, middleware3, (req, res) => {
+
+//     res.send({
+//         message: 'middlewares/index',
+//     })
+
+// })
+
+//? Yukarıdaki yöntem yerine aşağıdaki kısa yöntemi kullanabiliriz.
+
+const middlewares = require("./middlewares/"); // Object
+
+app.get(
+  "/*",
+  middlewares.middleware1,
+  middlewares.middleware2,
+  middlewares.middleware3,
+  (req, res) => {
+    res.send({
+      message: "middlewares/index",
+    });
+  }
+);
+
+/* -------------------------------------------------------------------------- */
 app.listen(PORT, () => console.log("Running: http://127.0.0.1:" + PORT));
