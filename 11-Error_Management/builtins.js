@@ -28,5 +28,10 @@ app.all("/", (req, res) => {
   });
 });
 
+//! Gelen URL'ye karşılık dosyayı bulacağımız statik klasörü :
+//! app.use('/images', express.static('./images'))
+app.use("/public", express.static("./images"));
+//? http://127.0.0.1:8000/public/foto.jpg
+
 /* -------------------------------------------------------------------------- */
 app.listen(PORT, () => console.log("Running: http://127.0.0.1:" + PORT));
