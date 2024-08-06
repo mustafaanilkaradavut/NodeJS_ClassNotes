@@ -84,7 +84,7 @@ app.get("/async", async (req, res, next) => {
   // await asyncFunction();
   res.errorStatusCode = 400;
   throw new Error("async-error", {
-    cause: "async function içinde bir hatadır.",
+    cause: "It's a error in async function ",
   });
 });
 
