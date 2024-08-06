@@ -55,6 +55,21 @@ app.get("/user/:id", function (req, res, next) {
 });
 
 /* -------------------------------------------------------------------------- */
+//__ ASYNC :
+
+const asyncFunction = async () => {
+  throw new Error("async-error");
+};
+
+app.get("/async", async (req, res, next) => {
+  await asyncFunction()
+    .then() // Çıktıda hata yok.
+    .catch((err) => {
+      next(err);
+    }); // Çıktıda hata var.
+});
+
+/* -------------------------------------------------------------------------- */
 //- ErrorHandler 4 parametreli olmak zorunda. Hata yakalayıcı parametre 1. parametredir.
 //- ErrorHandler en sonda yer almalı (sayfanın en altında)
 
