@@ -57,16 +57,35 @@ app.get("/user/:id", function (req, res, next) {
 /* -------------------------------------------------------------------------- */
 //__ ASYNC :
 
+// const asyncFunction = async () => {
+//   throw new Error("async-error");
+// };
+
+// app.get("/async", async (req, res, next) => {
+//   await asyncFunction()
+//     .then() // Çıktıda hata yok.
+//     .catch((err) => {
+//       next(err);
+//     }); // Çıktıda hata var.
+// });
+
+/* -------------------------------------------------------------------------- */
+//__ express-async-errors
+//,, $ npm i express-async-errors
+
+//,, Async fonksiyonlardaki hataları errorHandler'a yönlendir:
+require("express-async-errors");
+
 const asyncFunction = async () => {
   throw new Error("async-error");
 };
 
 app.get("/async", async (req, res, next) => {
-  await asyncFunction()
-    .then() // Çıktıda hata yok.
-    .catch((err) => {
-      next(err);
-    }); // Çıktıda hata var.
+  // await asyncFunction();
+  res.errorStatusCode = 400;
+  throw new Error("async-error", {
+    cause: "async function içinde bir hatadır.",
+  });
 });
 
 /* -------------------------------------------------------------------------- */
