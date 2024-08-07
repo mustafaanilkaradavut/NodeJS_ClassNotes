@@ -26,11 +26,31 @@ app.all("/", (req, res) => {
 
 const { Sequelize, DataTypes } = require("sequelize");
 
-//? Connection :
+//! Connection  Object:
+
 // const sequelize = new Sequelize("sqlite:./db.sqlite3");
+// const sequelize = new Sequelize("sqlite:" + process.env.SQLITE);
 const sequelize = new Sequelize(
   "sqlite:" + (process.env.SQLITE || "./db.sqlite3")
 );
+
+//! Sequelize Model:
+
+//sequelize.define("tableName", { ...colums });
+const Todo = sequelize.define("todos", {
+  id: {
+    type: DataTypes.INTEGER, //, DataType // Sütun veri tipi
+    allowNull: false, // default: true // Sütun verisi boş olabilir mi?
+    unique: true, // default: false // Benzersiz kayıt mı?
+    defaultValue: " ", // Kayıt eklendiğinde default olarak ne yazsın ?
+    // primaryKey: true, // defatult: false //, Tablonun her bir kaydını ifade eden benzersiz bir numara
+    // autoIncrement: true, // default: false // Sütun değeri her bir kayıtta otomatik olarak +1 artsın mı?
+    // comment: "We can add comment",
+    // field: "custom_field_name",
+  },
+});
+
+/* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
 
