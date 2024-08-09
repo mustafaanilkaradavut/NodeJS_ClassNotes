@@ -145,6 +145,56 @@ router.get("/:id", async (req, res) => {
   });
 });
 
+//.. UPDATE TODO:
+router.put("/:id", async (req, res) => {
+  // const data = await Todo.update({ ...newData }, { ...filter });
+  const data = await Todo.update(req.body, { where: { id: req.params.id } });
+  // console.log(data);
+
+  res.status(202).send({
+    error: false,
+    result: data,
+    message: data[0] >= 1 ? "Updated" : "Can not be updated.",
+    new: await Todo.findByPk(req.params.id), // Güncellenmiş kaydı göster.
+  });
+});
+
+//.. DELETE TODO:
+router.delete("/:id", async (req, res) => {
+  // const data = await Todo.destroy({ ...filter });
+  const data = await Todo.destroy({ where: { id: req.params.id } });
+  console.log(data);
+
+  // res.status(204).send({
+  //   error: false,
+  //   result: data,
+  //   message: data >= 1 ? "Deleted." : "Can not Deleted",
+  // });
+
+  if (data >= 1) {
+    //, Deleted
+    // res.status(204).send({
+    //   error: false,
+    //   result: data,
+    //   message: "Deleted",
+    // });
+
+    //, sadece status code çıktısı ver:
+    res.sendStatus(204);
+  } else {
+    //, Not Deleted
+    // res.status(404).send({
+    //   error: true,
+    //   result: data,
+    //   message: "Can not be Deleted",
+    // });
+
+    //, Send to ErrorHandler:
+    res.errorStatusCode = 404;
+    throw new Error("Can not Deleted. Maybe already deleted.");
+  }
+});
+
 app.use(router);
 
 /* -------------------------------------------------------------------------- */
