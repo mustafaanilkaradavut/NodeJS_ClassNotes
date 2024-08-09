@@ -134,6 +134,17 @@ router.post("/", async (req, res) => {
   });
 });
 
+//.. READ TODO:
+router.get("/:id", async (req, res) => {
+  // const data = await Todo.findOne({ where: { id: req.params.id } }); //, olması gereken budur.
+  const data = await Todo.findByPk(req.params.id);
+
+  res.status(200).send({
+    error: false,
+    result: data,
+  });
+});
+
 app.use(router);
 
 /* -------------------------------------------------------------------------- */
