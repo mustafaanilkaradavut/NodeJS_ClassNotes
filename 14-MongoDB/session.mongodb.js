@@ -89,7 +89,7 @@ db.coll.find(
   },
   { _id: 0, firstName: 1, lastName: 1 }
 ); // Select Fields
-db.coll.distinct("firstName"); // get only firstName in array.
+db.coll.distinct("firstName"); // get only firstName in array. It's not bring the repeat elements.
 // Comparison:
 db.coll.find({ age: { $exists: true } }); // if exists
 db.coll.find({ age: { $eq: 15 } }); // == : equal
