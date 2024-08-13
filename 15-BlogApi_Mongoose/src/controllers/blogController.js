@@ -11,7 +11,14 @@ const { BlogCategory, BlogPost } = require("../models/blogModel");
 
 module.exports.BlogCategory = {
   create: async (req, res) => {
-    res.send("Create Method");
+    // res.send("Create Method");
+
+    const data = await BlogCategory.create(req.body);
+    // console.log(data);
+    res.status(201).send({
+      error: false,
+      result: data,
+    });
   },
 };
 
