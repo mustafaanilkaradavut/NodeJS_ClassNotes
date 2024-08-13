@@ -27,6 +27,18 @@ app.use(require("./src/errorHandler"));
 
 /* ------------------------------------------------------- */
 
+app.all("/", (req, res) => {
+  res.send("WELCOME TO BLOG API");
+});
+
+/* -------------------------------------------------------------------------- */
+
+//__ Routes :
+
+app.use("/blog", require("./src/routes/blogRouter"));
+
+/* -------------------------------------------------------------------------- */
+
 app.listen(PORT, () => console.log("Running: http://127.0.0.1:" + PORT));
 
 /* -------------------------------------------------------------------------- */
@@ -37,7 +49,6 @@ app.listen(PORT, () => console.log("Running: http://127.0.0.1:" + PORT));
 //, npm i express dotenv express-async-errors
 //, echo PORT=8000 > .env
 //, npm i mongoose
-
 
 //! Process :
 
