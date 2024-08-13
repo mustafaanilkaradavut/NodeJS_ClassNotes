@@ -11,13 +11,16 @@ const PORT = process.env.PORT || 8000;
 
 /* ------------------------------------------------------- */
 
+//__ Accept JSON:
 app.use(express.json());
 
-app.all("/", (req, res) => {
-  res.send("Welcome To Blog API");
-});
+//? DB CONNECTION:
+// const dbConnection = require("./src/dbConnection");
+// dbConnection();
+require("./src/dbConnection")();
 
-//, continue from here...
+// Catch error from async:
+require("express-async-errors");
 
 //__ Catch Errors:
 app.use(require("./src/errorHandler"));
@@ -34,3 +37,8 @@ app.listen(PORT, () => console.log("Running: http://127.0.0.1:" + PORT));
 //, npm i express dotenv express-async-errors
 //, echo PORT=8000 > .env
 //, npm i mongoose
+
+
+//! Process :
+
+//, models -> controller -> routes -> index
