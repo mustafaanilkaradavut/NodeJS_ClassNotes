@@ -10,138 +10,134 @@ const { BlogCategory, BlogPost } = require('../models/blogModel');
 //? BlogCategory Controller :
 
 module.exports.BlogCategory = {
-   list: async (req, res) => {
-      const data = await BlogCategory.find();
+  list: async (req, res) => {
+    const data = await BlogCategory.find();
 
-      res.status(200).send({
-         error: false,
-         result: data,
+    res.status(200).send({
+      error: false,
+      result: data,
+    });
+  },
+
+  //, CRUD  ->
+
+  create: async (req, res) => {
+    // res.send("Create Method");
+
+    const data = await BlogCategory.create(req.body);
+    // console.log(data);
+    res.status(201).send({
+      error: false,
+      result: data,
+    });
+  },
+
+  read: async (req, res) => {
+    // const categoryId = req.params.categoryId
+    // const data = await BlogCategory.findOne({ _id: categoryId })
+
+    // const data = await BlogCategory.findOne({ ...filter })
+    const data = await BlogCategory.findOne({ _id: req.params.categoryId });
+    // const data = await BlogCategory.findById( req.params.categoryId )
+
+    res.status(200).send({
+      error: false,
+      result: data,
+    });
+  },
+
+  update: async (req, res) => {
+    // const data = await BlogCategory.updateOne({ ...filter }, { ...data });
+    const data = await BlogCategory.updateOne(
+      { _id: req.params.categoryId },
+      req.body
+    );
+    // const data = await BlogCategory.findByIdAndUpdate(req.params.categoryId, req.body)
+
+    res.status(200).send({
+      error: false,
+      result: data, // Güncelleme işleminin sayısal değerleri.
+      new: await BlogCategory.findOne({ _id: req.params.categoryId }), // Güncellenmiş datayı göster.
+    });
+  },
+
+  delete: async (req, res) => {
+    const data = await BlogCategory.deleteOne({
+      _id: req.params.categoryId,
+    });
+    console.log(data);
+
+    if (data.deletedCount >= 1) {
+      res.sendStatus(204); // No Content
+    } else {
+      res.status(404).send({
+        error: true,
+        message: 'Blog category not found.',
       });
-   },
-
-   //, CRUD  ->
-
-   create: async (req, res) => {
-      // res.send("Create Method");
-
-      const data = await BlogCategory.create(req.body);
-      // console.log(data);
-      res.status(201).send({
-         error: false,
-         result: data,
-      });
-   },
-
-   read: async (req, res) => {
-      // const categoryId = req.params.categoryId
-      // const data = await BlogCategory.findOne({ _id: categoryId })
-
-      // const data = await BlogCategory.findOne({ ...filter })
-      const data = await BlogCategory.findOne({ _id: req.params.categoryId });
-      // const data = await BlogCategory.findById( req.params.categoryId )
-
-      res.status(200).send({
-         error: false,
-         result: data,
-      });
-   },
-
-   update: async (req, res) => {
-      // const data = await BlogCategory.updateOne({ ...filter }, { ...data });
-      const data = await BlogCategory.updateOne(
-         { _id: req.params.categoryId },
-         req.body
-      );
-      // const data = await BlogCategory.findByIdAndUpdate(req.params.categoryId, req.body)
-
-      res.status(200).send({
-         error: false,
-         result: data, // Güncelleme işleminin sayısal değerleri.
-         new: await BlogCategory.findOne({ _id: req.params.categoryId }), // Güncellenmiş datayı göster.
-      });
-   },
-
-   delete: async (req, res) => {
-      const data = await BlogCategory.deleteOne({
-         _id: req.params.categoryId,
-      });
-      console.log(data);
-
-      if (data.deletedCount >= 1) {
-         res.sendStatus(204); // No Content
-      } else {
-         res.status(404).send({
-            error: true,
-            message: 'Blog category not found.',
-         });
-      }
-   },
+    }
+  },
 };
 
 /* -------------------------------------------------------------------------- */
 //? BlogPost Controller :
 
-// BlogPost Controller:
+module.exports.BlogPost = {
+  list: async (req, res) => {
+    // const data = await BlogPost.find({ ...filter }, { ...select })
+    // const data = await BlogPost.find({}, { _id: 0, categoryId: 1, title: 1, content: 1 })
+    //, Sadece belirttiğimiz değerlerin çıktısını alırız.
+    const data = await BlogPost.find(
+      {},
+      { categoryId: true, title: true, content: true }
+    ).populate('categoryId');
 
-module.exports.blogPost = {
-   list: async (req, res) => {
-      // const data = await BlogPost.find({ ...filter }, { ...select })
-      // const data = await BlogPost.find({}, { _id: 0, categoryId: 1, title: 1, content: 1 })
-      const data = await BlogPost.find(
-         {},
-         { categoryId: true, title: true, content: true }
-      ).populate('categoryId');
+    res.status(200).send({
+      error: false,
+      result: data,
+    });
+  },
 
-      res.status(200).send({
-         error: false,
-         result: data,
-      });
-   },
+  // CRUD ->
 
-   // CRUD ->
+  create: async (req, res) => {
+    const data = await BlogPost.create(req.body);
 
-   create: async (req, res) => {
-      const data = await BlogPost.create(req.body);
+    res.status(201).send({
+      error: false,
+      result: data,
+    });
+  },
 
-      res.status(201).send({
-         error: false,
-         result: data,
-      });
-   },
+  read: async (req, res) => {
+    const data = await BlogPost.findOne({ _id: req.params.postId }).populate(
+      'categoryId'
+    );
+    // const data = await BlogPost.findOne({ _id: req.params.postId }, { categoryId: true, title: true, content: true })
 
-   read: async (req, res) => {
-      const data = await BlogPost.findOne({ _id: req.params.postId }).populate(
-         'categoryId'
-      );
-      // const data = await BlogPost.findOne({ _id: req.params.postId }, { categoryId: true, title: true, content: true })
+    res.status(200).send({
+      error: false,
+      result: data,
+    });
+  },
 
-      res.status(200).send({
-         error: false,
-         result: data,
-      });
-   },
+  update: async (req, res) => {
+    const data = await BlogPost.updateOne({ _id: req.params.postId }, req.body);
 
-   update: async (req, res) => {
-      const data = await BlogPost.updateOne(
-         { _id: req.params.postId },
-         req.body
-      );
+    res.status(202).send({
+      error: false,
+      result: data, // Güncelleme işleminin sayısal değerleri.
+      new: await BlogPost.findOne({ _id: req.params.postId }), // Güncellenmiş datayı göster.
+    });
+  },
 
-      res.status(202).send({
-         error: false,
-         result: data, // Güncelleme işleminin sayısal değerleri.
-         new: await BlogPost.findOne({ _id: req.params.postId }), // Güncellenmiş datayı göster.
-      });
-   },
+  delete: async (req, res) => {
+    const data = await BlogPost.deleteOne({ _id: req.params.postId });
 
-   delete: async (req, res) => {
-      const data = await BlogPost.deleteOne({ _id: req.params.postId });
-
-      if (data.deletedCount >= 1) {
-         res.sendStatus(204);
-      } else {
-         res.errorStatusCode = 404;
-         throw new Error('Not Found.');
-      }
-   },
+    if (data.deletedCount >= 1) {
+      res.sendStatus(204);
+    } else {
+      res.errorStatusCode = 404;
+      throw new Error('Not Found.');
+    }
+  },
 };
