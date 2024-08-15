@@ -3,13 +3,11 @@
 //-                °    EXPRESSJS - BLOG Project with Mongoose                */
 /* -------------------------------------------------------------------------- */
 
-//! Call Model:
-
-// const User = require('../models/userModel') // Direct
-const { User } = require('../models/userModel'); // In Object
+// const  User  = require('../models/userModel'); //, Direct
+const { User } = require('../models/userModel'); //, In Object
 
 /* -------------------------------------------------------------------------- */
-//! User Controller:
+// User Controller :
 
 module.exports.user = {
   list: async (req, res) => {
@@ -21,11 +19,10 @@ module.exports.user = {
     });
   },
 
-  //__ CRUD ->
+  //, CRUD  ->
 
   create: async (req, res) => {
     const data = await User.create(req.body);
-
     res.status(201).send({
       error: false,
       result: data,
@@ -42,12 +39,11 @@ module.exports.user = {
   },
 
   update: async (req, res) => {
-    // const data = await User.updateOne({ _id: req.params.userId }, req.body)
-    const data = await User.updateOne({ _id: req.params.userId }, req.body, {
-      runValidators: true,
-    }); // Validate aktif et.
+    // const data = await User.updateOne({ ...filter }, { ...data });
+    const data = await User.updateOne({ _id: req.params.userId }, req.body);
+    // const data = await User.findByIdAndUpdate(req.params.userId, req.body)
 
-    res.status(202).send({
+    res.status(200).send({
       error: false,
       result: data, // Güncelleme işleminin sayısal değerleri.
       new: await User.findOne({ _id: req.params.userId }), // Güncellenmiş datayı göster.
@@ -55,13 +51,18 @@ module.exports.user = {
   },
 
   delete: async (req, res) => {
-    const data = await User.deleteOne({ _id: req.params.userId });
+    const data = await User.deleteOne({
+      _id: req.params.userId,
+    });
+    console.log(data);
 
     if (data.deletedCount >= 1) {
-      res.sendStatus(204);
+      res.sendStatus(204); // No Content
     } else {
-      res.errorStatusCode = 404;
-      throw new Error('Not Found.');
+      res.errorStatusCode(404).send({
+        error: true,
+        message: 'Blog category not found.',
+      });
     }
   },
 };
