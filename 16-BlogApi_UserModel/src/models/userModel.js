@@ -30,8 +30,6 @@ const passwordEncrypt = function (password) {
     .toString('hex');
 };
 
-console.log(passwordEncrypt('123456')); // c2ef87127ce40f00efa29060a5a76777993054fa879c0e377f241986b41e9ac7
-
 /* -------------------------------------------------------------------------- */
 
 const UserSchema = new mongoose.Schema(
@@ -70,7 +68,29 @@ const UserSchema = new mongoose.Schema(
       trim: true,
       required: [true, 'Password is required'],
       // set: (password) => passwordEncrypt(password),
-      set: passwordEncrypt, // Veri kaydederken return edilen data kaydedilir.
+      //set: passwordEncrypt, //, Veri kaydederken return edilen data kaydedilir.
+
+      //, Set methodu validate methodundan önce çalışır. Dolayısı ile validate data her zaman aynı formattadır. (Validate yapamayız.)
+      //? Uzun Yol :
+      // set: (password) => {
+      //   if (password.length >= 8) {
+      //     return passwordEncrypt(password);
+      //   } else {
+      //     return 'Wrong Processes';
+      //   }
+      // },
+      // validate: (password) => {
+      //   if (password == 'Wrong Processes') {
+      //     return false;
+      //   } else {
+      //     return true;
+      //   }
+      // },
+
+      //? Kısa Yol :
+      set: (password) =>
+        password.length >= 8 ? passwordEncrypt(password) : 'Wrong Processes',
+      validate: (password) => password != 'Wrong Processes', //* Güncelleme yaparken valiadate çalışmaz.
     },
     firstName: String,
     lastName: String,
