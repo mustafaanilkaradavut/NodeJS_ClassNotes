@@ -24,8 +24,15 @@ require('express-async-errors');
 
 /* -------------------------------------------------------------------------- */
 
+//- SessionCookies:
+// http://expressjs.com/en/resources/middleware/cookie-session.html
+// https://www.npmjs.com/package/cookie-session
+//__ $ npm i cookie-session
+
+/* -------------------------------------------------------------------------- */
+
 app.all('/', (req, res) => {
-  res.send('WELCOME TO BLOG API');
+   res.send('WELCOME TO BLOG API');
 });
 
 /* -------------------------------------------------------------------------- */
