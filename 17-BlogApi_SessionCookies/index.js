@@ -29,10 +29,23 @@ require('express-async-errors');
 // https://www.npmjs.com/package/cookie-session
 //__ $ npm i cookie-session
 
+const session = require('cookie-session'); // Session Middleware
+
+app.use(
+   // General Settings
+   session({
+      secret: process.env.SECRET_KEY, // Cookie datası şifreleme anahtarı
+      // maxAge: 1000 * 60 * 60 * 24 * 3, //miliSecond - 3 days
+   })
+);
+
 /* -------------------------------------------------------------------------- */
 
 app.all('/', (req, res) => {
-   res.send('WELCOME TO BLOG API');
+   res.send({
+      session: req.session,
+      message: 'WELCOME TO BLOG API',
+   });
 });
 
 /* -------------------------------------------------------------------------- */
