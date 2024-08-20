@@ -32,6 +32,7 @@ app.all('/', (req, res) => {
 
 //__ Routes :
 
+app.use('/auth', require('./src/routes/authRouter')); //, User Model / Login / Logout -- Auth
 app.use('/user', require('./src/routes/userRouter')); //, User Model
 app.use('/blog', require('./src/routes/blogRouter')); //, BlogCategory & BlogPost
 

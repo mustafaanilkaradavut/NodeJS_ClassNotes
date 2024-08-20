@@ -3,15 +3,17 @@
 //-                °    EXPRESSJS - BLOG Project with Mongoose                */
 /* -------------------------------------------------------------------------- */
 
-const { User } = require('../models/userModel');
+const router = require('express').Router();
+
+// Call Controllers: ( küçük harflerle user, controllerda ise User çünkü karıştırmamak ve farklı olması için.)
+const { auth } = require('../controllers/authController');
 
 /* -------------------------------------------------------------------------- */
-//__ Auth Controller :
 
-module.exports.auth = {
-  login: async (req, res) => {},
+// URL : /auth ->
 
-  logout: async (req, res) => {},
-};
+router.post('/login', auth.login);
+router.post('/logout', auth.logout);
 
 /* -------------------------------------------------------------------------- */
+module.exports = router;
