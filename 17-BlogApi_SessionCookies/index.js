@@ -59,7 +59,7 @@ app.use('/blog', require('./src/routes/blogRouter')); //, BlogCategory & BlogPos
 /* -------------------------------------------------------------------------- */
 
 //__ Catch Errors:
-app.use(require('./src/errorHandler'));
+app.use(require('./src/middlewares/errorHandler'));
 
 /* -------------------------------------------------------------------------- */
 

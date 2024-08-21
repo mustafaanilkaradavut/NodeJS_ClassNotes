@@ -25,8 +25,31 @@ module.exports.auth = {
             // console.log(user);
             if (user.password == passwordEncrypt(password)) {
                //, Password : OK
-               res.send({
-                  message: 'Login is succesfully',
+
+               //* SESSION */
+               // req.session = {
+               //    email: user.email,
+               //    password: user.password,
+               // };
+
+               // req.session.email = user.email;
+               req.session._id = user._id;
+               req.session.password = user.password;
+               //* SESSION */
+
+               //* COOKIE */
+               if (req.body?.remindMe == true) {
+                  req.session.remindMe = true;
+
+                  //, Set MaxAge to 3 days :
+                  req.sessionOptions.maxAge = 1000 * 60 * 60 * 24 * 3;
+               }
+               //* COOKIE */
+
+               res.status(200).send({
+                  error: false,
+                  message: 'Login OK',
+                  user,
                });
             } else {
                res.errorStatusCode = 401;
@@ -42,7 +65,14 @@ module.exports.auth = {
       }
    },
 
-   logout: async (req, res) => {},
+   logout: async (req, res) => {
+      // Session / Cookie Datasını silmek için Null Yeterli
+      req.session = null;
+      res.status(200).send({
+         error: false,
+         message: 'Logout OK',
+      });
+   },
 };
 
 /* -------------------------------------------------------------------------- */
