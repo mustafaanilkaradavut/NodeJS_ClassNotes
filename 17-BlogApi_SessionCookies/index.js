@@ -51,6 +51,7 @@ app.all('/', (req, res) => {
       session: req.session,
       message: 'WELCOME TO BLOG API',
       user: req.user,
+      isLogin: req.user ? true : false,
    });
 });
 
