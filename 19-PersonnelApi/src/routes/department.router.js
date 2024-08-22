@@ -1,11 +1,23 @@
-"use strict"
-/* -------------------------------------------------------
-    EXPRESS - Personnel API
-------------------------------------------------------- */
-const router = require('express').Router()
-/* ------------------------------------------------------- */
+'use strict';
+/* -------------------------------------------------------------------------- */
+//-                         EXPRESSJS - PERSONNEL API                         */
+/* -------------------------------------------------------------------------- */
 
+const router = require('express').Router();
 
+/* -------------------------------------------------------------------------- */
 
-/* ------------------------------------------------------- */
-module.exports = router
+const department = require('../controllers/department.controller');
+
+/* -------------------------------------------------------------------------- */
+
+router.route('/').get(department.list).post(department.create);
+
+router
+   .route('/:id')
+   .get(department.read)
+   .put(department.update)
+   .patch(department.update)
+   .delete(department.delete);
+
+module.exports = router;
