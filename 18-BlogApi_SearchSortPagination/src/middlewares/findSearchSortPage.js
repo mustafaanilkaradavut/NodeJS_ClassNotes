@@ -76,7 +76,7 @@ module.exports = async (req, res, next) => {
    };
 
    res.getModelListDetails = async function (Model) {
-      const data = Model.find({ ...filter, ...search });
+      const data = await Model.find({ ...filter, ...search });
 
       let details = {
          filter,
@@ -89,11 +89,13 @@ module.exports = async (req, res, next) => {
             previous: page > 1 ? page - 1 : false,
             current: page,
             next: page + 1,
-            total: Math.ceil(data.lenght / limit),
+            total: Math.ceil(data.length / limit),
          },
-         totalRecords: data.lenght,
+         totalRecords: data.length,
       };
 
+      if (details.pages.next > details.pages.total) details.pages.next = false;
+      if (details.totalRecords <= limit) details.pages = false;
       return details;
    };
 
