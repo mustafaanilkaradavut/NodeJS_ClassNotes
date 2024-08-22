@@ -83,13 +83,74 @@ module.exports.BlogCategory = {
 
 module.exports.BlogPost = {
    list: async (req, res) => {
+      //- FILTERING & SEARCHING & SORTING & PAGINATION
+
+      //__ FILTERING:
+
+      // URL?filter[fieldName1]=value1&filter[fieldName2]=value2
+      const filter = req.query?.filter || {};
+      // console.log(filter);
+
+      // const data = await BlogPost.find(filter);
+
+      //__ SEARCHING:
+
+      // URL?search[fieldName1]=value1&search[fieldName2]=value2
+      const search = req.query?.search || {};
+      // console.log(search);
+      //* https://www.mongodb.com/docs/manual/reference/operator/query/regex/
+      for (let key in search) search[key] = { $regex: search[key] }; //, içinde arama yapmak diye regex kullanırız.
+      // console.log(search);
+
+      // const data = await BlogPost.find({ ...filter, ...search });
+
+      //__ SORTING:
+
+      // Cancelled: URL?sort[fieldName1]=1&sort[fieldName2]=-1 // Mongoose 8.0 > deprecated
+      // URL?sort[fieldName1]=asc&sort[fieldName2]=desc
+      const sort = req.query?.sort || {};
+      // console.log(sort);
+
+      // const data = await BlogPost.find({ ...filter, ...search }).sort(sort);
+
+      //__ PAGINATION:
+
+      // URL?page=3&limit=15&skip=20
+      //? LIMIT:
+      let limit = Number(req.query?.limit);
+      limit = limit > 0 ? limit : Number(process.env?.PAGE_SIZE || 20);
+      // console.log(limit, typeof limit);
+
+      //? PAGE:
+      let page = Number(req.query?.page);
+      page = page > 0 ? page : 1;
+
+      //? SKIP:
+      let skip = Number(req.query?.skip);
+      skip = skip > 0 ? skip : (page - 1) * limit;
+
+      //__ RUN:
+
+      // const data = await BlogPost.find({ ...filter, ...search })
+      //    .sort(sort)
+      //    .skip(skip)
+      //    .limit(limit);
+
+      const data = await BlogPost.find({ ...filter, ...search })
+         .sort(sort)
+         .skip(skip)
+         .limit(limit)
+         .populate('categoryId');
+
       // const data = await BlogPost.find({ ...filter }, { ...select })
       // const data = await BlogPost.find({}, { _id: 0, categoryId: 1, title: 1, content: 1 })
       //, Sadece belirttiğimiz değerlerin çıktısını alırız.
-      const data = await BlogPost.find(
-         {},
-         { categoryId: true, title: true, content: true }
-      ).populate('categoryId');
+      // const data = await BlogPost.find(
+      //    {},
+      //    { categoryId: true, title: true, content: true }
+      // ).populate('categoryId');
+
+      // const data = await BlogPost.find().populate('categoryId');
 
       res.status(200).send({
          error: false,
