@@ -65,6 +65,7 @@ module.exports = async (req, res, next) => {
    //    .limit(limit)
    //    .populate('categoryId');
 
+   //__ GetModel List
    //.. Başka yerlerde kullanabilmek ve Model parametresini kullanacağımız yerde değiştirmek için tasarlarız.
    res.getModelList = async function (Model, populate = null) {
       return await Model.find({ ...filter, ...search })
@@ -73,6 +74,31 @@ module.exports = async (req, res, next) => {
          .limit(limit)
          .populate(populate);
    };
+
+   res.getModelListDetails = async function (Model) {
+      const data = Model.find({ ...filter, ...search });
+
+      let details = {
+         filter,
+         search,
+         sort,
+         skip,
+         limit,
+         page,
+         pages: {
+            previous: page > 1 ? page - 1 : false,
+            current: page,
+            next: page + 1,
+            total: Math.ceil(data.lenght / limit),
+         },
+         totalRecords: data.lenght,
+      };
+
+      return details;
+   };
+
+   next();
+   //! Middlewares'lerde next kesinlikle olmalı.
 };
 
 /* -------------------------------------------------------------------------- */

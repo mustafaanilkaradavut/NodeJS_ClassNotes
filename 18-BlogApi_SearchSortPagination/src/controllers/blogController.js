@@ -11,10 +11,12 @@ const { BlogCategory, BlogPost } = require('../models/blogModel');
 
 module.exports.BlogCategory = {
    list: async (req, res) => {
-      const data = await BlogCategory.find();
+      // const data = await BlogCategory.find();
+      const data = await res.getModelList(BlogCategory);
 
       res.status(200).send({
          error: false,
+         details: await res.getModelListDetails(BlogCategory),
          result: data,
       });
    },
@@ -153,6 +155,8 @@ module.exports.BlogPost = {
       // ).populate('categoryId');
 
       // const data = await BlogPost.find().populate('categoryId');
+
+      const data = await res.getModelList(BlogPost, 'categoryId');
 
       res.status(200).send({
          error: false,
