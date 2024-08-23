@@ -4,9 +4,9 @@
 /* -------------------------------------------------------------------------- */
 
 /*
-    $ npm i express dotenv mongoose express-async-errors
-    $ npm i cookie-session
-    $ npm i jsonwebtoken
+   $ npm i express dotenv mongoose express-async-errors
+   $ npm i cookie-session
+   $ npm i jsonwebtoken
 */
 
 const express = require('express');
@@ -40,6 +40,27 @@ app.use(
       //   }
    })
 );
+
+//.. res.getModelList():
+app.use(require('./src/middlewares/findSearchSortPage'));
+
+//? HomePath:
+app.all('/', (req, res) => {
+   res.send({
+      error: false,
+      message: 'Welcome to PERSONNEL API',
+      session: req.session,
+      isLogin: req.isLogin,
+   });
+});
+
+//? not found routes
+app.all('*', async (req, res) => {
+   res.status(404).send({
+      error: true,
+      message: 'Route not available',
+   });
+});
 
 //.. Departments
 app.use('departments', require('./src/routes/department.router'));
