@@ -22,19 +22,34 @@ const PORT = process.env?.PORT || 8000;
 // asyncErrors to errorHandler:
 require('express-async-errors');
 
+/* -------------------------------------------------------------------------- */
+//? db connection:
+dbConnection();
+
+//? body parser:
+app.use(express.json());
+
+//__ httpOnly:true XSS Cross Site Scripting  - - -> Cookie'leri güvenli hale getirmek için yaparız.
+app.use(
+   require('cookie-session')({
+      secret: process.env.SECRET_KEY,
+      // cookie: {
+      //     secure: !(process.env.NODE_ENV=="development"),
+      //     httpOnly: false,
+      //     maxAge: 24 * 60 * 60 * 1000,
+      //   }
+   })
+);
+
 //.. Departments
 app.use('departments', require('./src/routes/department.router'));
 
-/* -------------------------------------------------------------------------- */
-//db connection
-dbConnection();
-
-// errorHandler:
+//? errorHandler:
 app.use(require('./src/middlewares/errorHandler'));
 
-// RUN SERVER:
+//? RUN SERVER:
 app.listen(PORT, () => console.log('http://127.0.0.1:' + PORT));
 
 /* -------------------------------------------------------------------------- */
-
+// Syncronization (must be in commentLine):
 // require('./src/helpers/sync')()
