@@ -32,12 +32,13 @@ app.use(express.json());
 //__ httpOnly:true XSS Cross Site Scripting  - - -> Cookie'leri güvenli hale getirmek için yaparız.
 app.use(
    require('cookie-session')({
+      name: 'session',
       secret: process.env.SECRET_KEY,
-      // cookie: {
-      //     secure: !(process.env.NODE_ENV=="development"),
-      //     httpOnly: false,
-      //     maxAge: 24 * 60 * 60 * 1000,
-      //   }
+      cookie: {
+         secure: !(process.env.NODE_ENV == 'development'),
+         httpOnly: false,
+         maxAge: 24 * 60 * 60 * 1000,
+      },
    })
 );
 
@@ -78,9 +79,9 @@ app.listen(PORT, () => console.log('http://127.0.0.1:' + PORT));
 // Syncronization (must be in commentLine):
 // require('./src/helpers/sync')()
 
-if (process.env.NODE_ENV == 'development') {
-   // return;
-   require('./src/helpers/dataCreate')()
-      .then((res) => console.log('Data synched'))
-      .catch((err) => console.error('Data could not synched'));
-}
+// if (process.env.NODE_ENV == 'development') {
+//    // return;
+//    require('./src/helpers/dataCreate')()
+//       .then((res) => console.log('Data synched'))
+//       .catch((err) => console.error('Data could not synched'));
+// }

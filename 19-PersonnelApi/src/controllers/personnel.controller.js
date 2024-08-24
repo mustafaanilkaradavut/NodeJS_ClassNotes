@@ -111,11 +111,19 @@ module.exports = {
          throw new Error('Please entry username and password.');
       }
    },
-   logout: async () => {
-      req.session = null;
-      res.send({
-         error: false,
-         maessage: 'Logout is completed',
-      });
+   logout: async (req, res) => {
+      if (req.session) {
+         req.session = null; // Session'ı temizlemek
+         res.clearCookie('session'); // Session çerezini temizlemek
+         res.status(200).send({
+            error: false,
+            message: 'Logout is completed',
+         });
+      } else {
+         res.status(200).send({
+            error: false,
+            message: 'No session to destroy, logout successful.',
+         });
+      }
    },
 };

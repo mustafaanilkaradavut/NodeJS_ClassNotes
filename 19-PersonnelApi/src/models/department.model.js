@@ -19,4 +19,4 @@ const DepartmentSchema = new mongoose.Schema(
    { collection: 'departments', timestamps: true }
 );
 
-module.exports = mongoose.model('Depertment', DepartmentSchema);
+module.exports = mongoose.model('Department', DepartmentSchema);

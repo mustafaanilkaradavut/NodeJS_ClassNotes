@@ -13,7 +13,7 @@ const personnel = require('../controllers/personnel.controller');
 //http://localhost:8000/personnels/login
 
 router.post('/login', personnel.login);
-router.all('/logout', personnel.logout);
+router.post('/logout', personnel.logout);
 
 router.route('/').get(personnel.list).post(personnel.create);
 
