@@ -54,16 +54,19 @@ app.all('/', (req, res) => {
    });
 });
 
-//? not found routes
+//.. Departments
+app.use('/departments', require('./src/routes/department.router'));
+
+//.. Personnels
+app.use('/personnels', require('./src/routes/personnel.router'));
+
+//.. not found routes
 app.all('*', async (req, res) => {
    res.status(404).send({
       error: true,
       message: 'Route not available',
    });
 });
-
-//.. Departments
-app.use('departments', require('./src/routes/department.router'));
 
 //? errorHandler:
 app.use(require('./src/middlewares/errorHandler'));
@@ -74,3 +77,10 @@ app.listen(PORT, () => console.log('http://127.0.0.1:' + PORT));
 /* -------------------------------------------------------------------------- */
 // Syncronization (must be in commentLine):
 // require('./src/helpers/sync')()
+
+if (process.env.NODE_ENV == 'development') {
+   // return;
+   require('./src/helpers/dataCreate')()
+      .then((res) => console.log('Data synched'))
+      .catch((err) => console.error('Data could not synched'));
+}
