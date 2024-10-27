@@ -25,7 +25,7 @@ module.exports = {
       const isLead = req.body?.isLead || false;
       if (isLead) {
          const xyz = await Personnel.updateMany(
-            { departmentId: req.body.departmentId, isLead: true },  // Filtreleme yapar.
+            { departmentId: req.body.departmentId, isLead: true }, // Filtreleme yapar.
             { isLead: false } // Guncelleme yapar.
          );
       }
@@ -88,7 +88,7 @@ module.exports = {
 
       if (username && password) {
          const user = await Personnel.findOne({ username, password });
-         if (user) {
+         if (user && user.isActive) {
             // Set Session:
             req.session = {
                id: user._id,
@@ -112,6 +112,7 @@ module.exports = {
          throw new Error('Please entry username and password.');
       }
    },
+
    logout: async (req, res) => {
       if (req.session) {
          req.session = null; // Session'ı temizlemek

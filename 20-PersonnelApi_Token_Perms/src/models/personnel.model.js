@@ -105,7 +105,7 @@ const PersonnelSchema = new mongoose.Schema(
 
 /* -------------------------------------------------------------------------- */
 
-//, Kullaniciya bilgileri gonderirken gereksiz bilgileri silip o sekilde gondermek icin kullaniriz,
+//, Kullaniciya bilgileri gonderirken gereksiz bilgileri silip o sekilde gondermek icin kullaniriz.
 
 // PersonnelSchema.set("toJSON", {
 //   transform: (doc, ret) => {
