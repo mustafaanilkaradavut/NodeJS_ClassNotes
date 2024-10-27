@@ -60,6 +60,9 @@ app.all('/', (req, res) => {
 //.. Auth
 app.use('/auth', require('./src/routes/auth.router'));
 
+//.. Tokens
+app.use('/tokens', require('./src/routes/token.router'));
+
 //.. Departments
 app.use('/departments', require('./src/routes/department.router'));
 
@@ -82,10 +85,10 @@ app.listen(PORT, () => console.log('http://127.0.0.1:' + PORT));
 
 /* -------------------------------------------------------------------------- */
 // Syncronization (must be in commentLine):
-// require('./src/helpers/sync')()
+// require('./src/helpers/sync')();
 
 // if (process.env.NODE_ENV == 'development') {
-//    // return;
+//    return;
 //    require('./src/helpers/dataCreate')()
 //       .then((res) => console.log('Data synched'))
 //       .catch((err) => console.error('Data could not synched'));
