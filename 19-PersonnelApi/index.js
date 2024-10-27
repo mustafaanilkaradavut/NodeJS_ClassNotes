@@ -5,6 +5,8 @@
 
 /*
    $ npm i express dotenv mongoose express-async-errors
+   $ npm i -D nodemon
+   $ npm run dev
    $ npm i cookie-session
    $ npm i jsonwebtoken
 */
