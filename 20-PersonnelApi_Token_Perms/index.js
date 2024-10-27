@@ -57,6 +57,9 @@ app.all('/', (req, res) => {
    });
 });
 
+//.. Auth
+app.use('/auth', require('./src/routes/auth.router'));
+
 //.. Departments
 app.use('/departments', require('./src/routes/department.router'));
 
