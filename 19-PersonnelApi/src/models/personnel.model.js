@@ -103,6 +103,10 @@ const PersonnelSchema = new mongoose.Schema(
    { collection: 'personnels', timestamps: true }
 );
 
+/* -------------------------------------------------------------------------- */
+
+//, Kullaniciya bilgileri gonderirken gereksiz bilgileri silip o sekilde gondermek icin kullaniriz,
+
 // PersonnelSchema.set("toJSON", {
 //   transform: (doc, ret) => {
 //     ret.id = ret._id;

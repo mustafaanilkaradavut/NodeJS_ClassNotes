@@ -20,12 +20,13 @@ module.exports = {
       // const isFirstAccount = (await Personnel.countDocuments()) === 0;
       // req.body.isAdmin = isFirstAccount ? true : false;
 
-      // isLead Control:
+      //, isLead Control:
+
       const isLead = req.body?.isLead || false;
       if (isLead) {
          const xyz = await Personnel.updateMany(
-            { departmentId: req.body.departmentId, isLead: true },
-            { isLead: false }
+            { departmentId: req.body.departmentId, isLead: true },  // Filtreleme yapar.
+            { isLead: false } // Guncelleme yapar.
          );
       }
 
