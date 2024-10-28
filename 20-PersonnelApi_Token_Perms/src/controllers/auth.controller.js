@@ -9,6 +9,8 @@ const Token = require('../models/token.model');
 const passwordEncrypt = require('../helpers/passwordEncrypt');
 
 module.exports = {
+   //.. Login ;
+
    login: async (req, res) => {
       const { username, password } = req.body;
 
@@ -51,7 +53,24 @@ module.exports = {
       }
    },
 
-   logout: async (req, res) => {},
+   //.. Logout;
+
+   logout: async (req, res) => {
+      //, Token Delete ;
+      // if (req.user) {
+      //    const data = await Token.deleteOne({ userId: req.user._id });
+      // }
+
+      const data = req.user
+         ? await Token.deleteOne({ userId: req.user._id })
+         : null;
+
+      res.status(200).sen({
+         error: false,
+         message: 'Logout OK',
+         data,
+      });
+   },
 };
 
 /* -------------------------------------------------------------------------- */
