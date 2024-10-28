@@ -44,6 +44,9 @@ app.use(
    })
 );
 
+//.. Authentication Middleware
+app.use(require('./src/middlewares/authentication')); // Yukari koyduk cunku genel yapmak istedik
+
 //.. res.getModelList():
 app.use(require('./src/middlewares/findSearchSortPage'));
 
@@ -54,6 +57,7 @@ app.all('/', (req, res) => {
       message: 'Welcome to PERSONNEL API',
       session: req.session,
       isLogin: req.isLogin,
+      user: req.user,
    });
 });
 
