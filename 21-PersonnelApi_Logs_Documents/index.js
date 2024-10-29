@@ -68,11 +68,23 @@ const morgan = require('morgan');
 
 //, Write to File:
 
-const fs = require('node:fs');
+// const fs = require('node:fs');
+// app.use(
+//    morgan('combined', {
+//       stream: fs.createWriteStream('./access.log', { flags: 'a+' }),
+//    })
+// );
 
+//, Write to File = Day by Day
+
+const fs = require('node:fs');
+const now = new Date();
+// console.log(now, typeof now);
+const today = now.toISOString().split('T')[0];
+// console.log(today, typeof today);
 app.use(
    morgan('combined', {
-      stream: fs.createReadStream('./access.log', { flags: 'a+' }),
+      stream: fs.createWriteStream(`./logs/${today}.log`, { flags: 'a+' }),
    })
 );
 
