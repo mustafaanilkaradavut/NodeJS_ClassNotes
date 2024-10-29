@@ -44,6 +44,40 @@ app.use(
    })
 );
 
+/* -------------------------------------------------------------------------- */
+
+//.. Logger :
+
+//__ Morgan
+// https://expressjs.com/en/resources/middleware/morgan.html
+
+const morgan = require('morgan');
+
+// app.use(morgan('tiny'));
+// app.use(morgan('short'));
+// app.use(morgan('dev'));
+// app.use(morgan('common'));
+// app.use(morgan('combined'));
+
+//, Custom Log Creating:
+// app.use(
+//    morgan(
+//       'TIME=":date[iso]" - URL=":url" - Method=":method" - IP=":remote-addr" - Ref=":referrer" - Status=":status" - Sign=":user-agent" (:response-time[digits] ms)'
+//    )
+// );
+
+//, Write to File:
+
+const fs = require('node:fs');
+
+app.use(
+   morgan('combined', {
+      stream: fs.createReadStream('./access.log', { flags: 'a+' }),
+   })
+);
+
+/* -------------------------------------------------------------------------- */
+
 //.. Authentication Middleware
 app.use(require('./src/middlewares/authentication')); // Yukari koyduk cunku genel yapmak istedik
 
