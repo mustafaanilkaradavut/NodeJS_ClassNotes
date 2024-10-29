@@ -46,6 +46,12 @@ app.use(
 
 /* -------------------------------------------------------------------------- */
 
+//.. Documentation
+//, $ npm i swagger-autogen   # JSON creator # Bir kez calistiracagiz.
+//, $ npm i swagger-ui-express
+//, $ npm i redoc-express
+
+/* -------------------------------------------------------------------------- */
 //.. Morgan Logger
 app.use(require('./src/middlewares/logger'));
 

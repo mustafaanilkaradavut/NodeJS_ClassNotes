@@ -11,13 +11,17 @@
    "author": "",
    "license": "ISC",
    "dependencies": {
+      "autogen": "^0.0.1",
       "cookie-session": "^2.1.0",
       "dotenv": "^16.4.5",
       "express": "^4.21.1",
       "express-async-errors": "^3.1.1",
       "jsonwebtoken": "^9.0.2",
       "mongoose": "^8.7.3",
-      "morgan": "^1.10.0"
+      "morgan": "^1.10.0",
+      "redoc-express": "^2.1.0",
+      "swagger": "^0.7.5",
+      "swagger-ui-express": "^5.0.1"
    },
    "devDependencies": {
       "nodemon": "^3.1.7"
