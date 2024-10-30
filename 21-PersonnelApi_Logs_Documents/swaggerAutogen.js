@@ -68,3 +68,11 @@ const document = {
    security: [{ Token: [] }],
    definitions: {},
 };
+
+const routes = ['./index.js'];
+const outputFile = './swagger.json';
+
+//, RUN:
+
+swaggerAutogen(outputFile, routes, document);
+//! node swaggerAutogen.js
