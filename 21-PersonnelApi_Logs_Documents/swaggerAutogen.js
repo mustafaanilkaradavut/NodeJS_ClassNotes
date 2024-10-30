@@ -66,7 +66,10 @@ const document = {
       },
    },
    security: [{ Token: [] }],
-   definitions: {},
+   definitions: {
+      Department: require('./src/models/department.model').schema.obj,
+      Personnel: require('./src/models/personnel.model').schema.obj,
+   },
 };
 
 const routes = ['./index.js'];
