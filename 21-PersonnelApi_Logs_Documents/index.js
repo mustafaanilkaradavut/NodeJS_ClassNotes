@@ -68,7 +68,12 @@ app.use(
    })
 );
 
-
+//__ REDOC :
+const redoc = require('redoc-express');
+app.use(
+   '/documents/redoc',
+   redoc({ specUrl: '/documents/json', title: 'Redoc UI' })
+);
 
 /* -------------------------------------------------------------------------- */
 //.. Morgan Logger
