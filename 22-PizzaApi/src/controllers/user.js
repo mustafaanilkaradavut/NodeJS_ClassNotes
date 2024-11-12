@@ -45,10 +45,25 @@ module.exports = {
             #swagger.tags = ["Users"]
             #swagger.summary = "Create User"
       */
+
+      if (
+         !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/.test(
+            req?.body?.password
+         )
+      ) {
+         res.errorStatusCode = 404;
+         throw new Error(
+            'Password must be at least 8 characters long and contain at least one special character and  at least one uppercase character'
+         );
+         //   Alternative Method :
+         //   const customError = new Error("");
+         //   error.statusCode = 404;
+         //   throw customError;
+      }
       const data = await User.create(req.body);
       res.status(201).send({
          error: false,
-         details: await res.getModelListDetails(User),
+         data,
       });
    },
 
