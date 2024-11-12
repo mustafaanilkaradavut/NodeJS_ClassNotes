@@ -77,7 +77,7 @@ module.exports = {
       });
       res.status(202).send({
          error: false,
-         new: await User.findOne({ _id: req.param.id }),
+         new: await User.findOne({ _id: req.params.id }),
       });
    },
 

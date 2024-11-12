@@ -22,7 +22,7 @@ module.exports = {
                   "password": "aA?123456",
                }
             }
-        */
+      */
       const { username, email, password } = req.body;
       if (!((username || email) && password)) {
          res.errorStatusCode = 401;
@@ -52,13 +52,13 @@ module.exports = {
       });
    },
 
-   //.. CRUD:
+   //..
 
    logout: async (req, res) => {
       /*
             #swagger.tags = ["Tokens"]
             #swagger.summary = "Create Token"
-        */
+      */
 
       const auth = req.headers?.authorization; //"Token token"
       const tokenKey = auth ? auth.split(' ') : null; // [ "Token", tokenKey]
