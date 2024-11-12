@@ -32,7 +32,7 @@ const UserSchema = new mongoose.Schema(
       email: {
          type: String,
          trim: true,
-         unique: ture,
+         unique: true,
          required: true,
          validate: [
             (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),
@@ -50,3 +50,5 @@ const UserSchema = new mongoose.Schema(
    },
    { collection: 'users', timestamps: true }
 );
+
+module.exports = mongoose.model('User', UserSchema);
