@@ -60,7 +60,10 @@ module.exports = {
          isAdmin: user.isAdmin,
       };
       // Convert to JWT :
-      const accessToken = jwt.sign()
+      // jwt.sign(payload, key { expiresIn: '30m'})  ========== Verdigimiz sureyi islemek icin buraya yazariz. Daha ozel ve korunmasi gereken bilgileri icerir.
+      const accessToken = jwt.sign(accessData, process.env.ACCESS_KEY, {
+         expiresIn: '30m',
+      });
 
       //, Refresh Token
       const refreshData = {
@@ -68,14 +71,38 @@ module.exports = {
          password: user.password,
       };
 
+      // Comvert to JWT :
+      const refreshToken = jwt.sign(refreshData, process.env.REFRESH_KEY, {
+         expiresIn: '3d',
+      });
+
       res.send({
          error: false,
          token: tokenData.token,
+         bearer: {
+            access: accessToken,
+            refresh: refreshToken,
+         },
          user,
       });
    },
 
-   //..
+   refresh: async (req, res) => {
+      /*
+            #swagger.tags = ["Authentication"]
+            #swagger.summary = "Refresh"
+            #swagger.description = 'Refresh with refreshToken for get accessToken'
+            #swagger.parameters["body"] = {
+               in: "body",
+               required: true,
+               schema: {
+                  "bearer": {
+                     refresh: '...refresh_token...'
+                  }
+               }
+            }
+      */
+   },
 
    logout: async (req, res) => {
       /*
@@ -85,12 +112,20 @@ module.exports = {
 
       const auth = req.headers?.authorization; //"Token token"
       const tokenKey = auth ? auth.split(' ') : null; // [ "Token", tokenKey]
-      const result = await Token.deleteOne({ token: tokenKey });
 
-      res.send({
-         error: false,
-         message: 'Token deleted. Logout was OK.',
-         result,
-      });
+      if (tokenKey[0] == 'Token') {
+         const result = await Token.deleteOne({ token: tokenKey });
+
+         res.send({
+            error: false,
+            message: 'Token deleted. Logout was OK.',
+            result,
+         });
+      } else if (tokenKey[0] == 'Bearer') {
+         res.send({
+            error: false,
+            message: 'JWT: No need any proccess for logout',
+         });
+      }
    },
 };
