@@ -7,6 +7,7 @@
 const Token = require('../models/token');
 const User = require('../models/user');
 const passwordEncrypt = require('../helpers/passwordEncrypt');
+const jwt = require('jsonwebtoken');
 
 module.exports = {
    login: async (req, res) => {
@@ -38,6 +39,8 @@ module.exports = {
          throw new Error('This account is not active.');
       }
 
+      //__ Simple Token :
+
       let tokenData = await Token.findOne({ userId: user.id });
       if (!tokenData) {
          tokenData = await Token.create({
@@ -45,6 +48,26 @@ module.exports = {
             token: passwordEncrypt(user.id + Date.now()),
          });
       }
+
+      //__ JWT Token :
+
+      //, Access Token
+      const accessData = {
+         _id: user._id,
+         username: user.username,
+         email: user.email,
+         isActive: user.isActive,
+         isAdmin: user.isAdmin,
+      };
+      // Convert to JWT :
+      const accessToken = jwt.sign()
+
+      //, Refresh Token
+      const refreshData = {
+         _id: user._id,
+         password: user.password,
+      };
+
       res.send({
          error: false,
          token: tokenData.token,
