@@ -48,7 +48,28 @@ app.use(require('./src/middlewares/authentication'));
 // findSearchSortPage / res.getModelList:
 app.use(require('./src/middlewares/queryHandler'));
 
-/* ------------------------------------------------------- */
+/* -------------------------------------------------------------------------- */
+
+// E-MAIL
+// nodemailer.com
+// npm install nodemailer
+
+const nodemailer = require('nodemailer');
+
+//? Create Test Account
+
+// nodemailer.createTestAccount().then((data) => console.log(data));
+// {
+//    user: 'qf3tu4hlrbyme6c7@ethereal.email',
+//    pass: 'N4z93TSEavy5Auy1Qd',
+//    smtp: { host: 'smtp.ethereal.email', port: 587, secure: false },
+//    imap: { host: 'imap.ethereal.email', port: 993, secure: true },
+//    pop3: { host: 'pop3.ethereal.email', port: 995, secure: true },
+//    web: 'https://ethereal.email',
+//    mxEnabled: false
+//  }
+
+/* -------------------------------------------------------------------------- */
 
 //__ Routes:
 
