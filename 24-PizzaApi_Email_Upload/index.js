@@ -55,7 +55,7 @@ app.use(require('./src/middlewares/queryHandler'));
 // nodemailer.com
 // npm install nodemailer
 
-const nodemailer = require('nodemailer');
+// const nodemailer = require('nodemailer');
 
 //? Create Test Account
 // nodemailer.createTestAccount().then((data) => console.log(data));  //* Bunun ciktisi asagidaki sonuctur fake bir hesap olustururuz.
@@ -102,13 +102,13 @@ const nodemailer = require('nodemailer');
 
 //? GoogleMail (gmail) Connection :
 //__ Google -> AccountHome -> Security -> Two-Step-Verify -> App-Passwords
-const transporter = nodemailer.createTransport({
-   service: 'gmail',
-   auth: {
-      user: '3183anilmak@gmail.com',
-      pass: 'ahjm htrv lwrh dpvy',
-   },
-});
+// const transporter = nodemailer.createTransport({
+//    service: 'gmail',
+//    auth: {
+//       user: '3183anilmak@gmail.com',
+//       pass: 'ahjm htrv lwrh dpvy',
+//    },
+// });
 
 //? YandexMail (yandex)
 // const transporter = nodemailer.createTransport({
