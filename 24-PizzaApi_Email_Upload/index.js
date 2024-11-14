@@ -2,6 +2,7 @@
 /* -------------------------------------------------------------------------- */
 //-                     | FULLSTACK TEAM | NODEJS / EXPRESS |                 */
 /* -------------------------------------------------------------------------- */
+
 /*
    $ cp .env-sample .env
    $ npm init -y
@@ -57,8 +58,7 @@ app.use(require('./src/middlewares/queryHandler'));
 const nodemailer = require('nodemailer');
 
 //? Create Test Account
-
-// nodemailer.createTestAccount().then((data) => console.log(data));
+// nodemailer.createTestAccount().then((data) => console.log(data));  //* Bunun ciktisi asagidaki sonuctur fake bir hesap olustururuz.
 // {
 //    user: 'qf3tu4hlrbyme6c7@ethereal.email',
 //    pass: 'N4z93TSEavy5Auy1Qd',
@@ -68,6 +68,73 @@ const nodemailer = require('nodemailer');
 //    web: 'https://ethereal.email',
 //    mxEnabled: false
 //  }
+
+//? Connect to MailServer/SMTP
+// const transporter = nodemailer.createTransport({
+//    // SMTP Options :
+//    host: 'smtp.ethereal.email',
+//    port: '587',
+//    secure: false,
+//    auth: {
+//       user: 'qf3tu4hlrbyme6c7@ethereal.email',
+//       pass: 'N4z93TSEavy5Auy1Qd',
+//    },
+// });
+
+// console.log(transporter);
+
+//? SendMail :
+
+// transporter.sendMail(
+//    {
+//       from: 'awxt4bslsuo53z2h@ethereal.email',
+//       to: 'qadir@clarusway.com', // 'abc@def.com, def@ghi.com'
+//       subject: 'Hello',
+//       text: 'Hello There. How are you?',
+//       html: '<p> <b> Hello There </b> <br> How are you? </p>',
+//    },
+//    function (error, success) {
+//       success
+//          ? console.log('SUCCESS:', success)
+//          : console.log('ERROR: ', error);
+//    }
+// );
+
+//? GoogleMail (gmail) Connection :
+//__ Google -> AccountHome -> Security -> Two-Step-Verify -> App-Passwords
+const transporter = nodemailer.createTransport({
+   service: 'gmail',
+   auth: {
+      user: '3183anilmak@gmail.com',
+      pass: 'ahjm htrv lwrh dpvy',
+   },
+});
+
+//? YandexMail (yandex)
+// const transporter = nodemailer.createTransport({
+//     service: 'yandex',
+//     auth: {
+//         user: 'test@yandex.com',
+//         pass: '11' // your email-password
+//     }
+// })
+
+//? SenMail :
+
+// transporter.sendMail(
+//    {
+//       from: '3183anilmak@gmail.com',
+//       to: '3183anilmak@gmail.com', // 'abc@def.com, def@ghi.com'
+//       subject: 'Hello',
+//       text: 'Hello There. How are you?',
+//       html: '<p> <b> Hello There </b> <br> How are you? </p>',
+//    },
+//    function (error, success) {
+//       success
+//          ? console.log('SUCCESS:', success)
+//          : console.log('ERROR: ', error);
+//    }
+// );
 
 /* -------------------------------------------------------------------------- */
 
