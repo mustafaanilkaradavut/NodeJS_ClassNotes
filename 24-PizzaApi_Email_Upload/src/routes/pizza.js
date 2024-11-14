@@ -10,21 +10,23 @@ const router = require('express').Router();
 // npm i multer
 // https://expressjs.com/en/resources/middleware/multer.html
 
-const multer = require('multer');
+// const multer = require('multer');
 
-const upload = multer({
-   // dest: './uploads',
-   storage: multer.diskStorage({
-      destination: './uploads',
-      filename: function (req, file, returnCallback) {
-         console.log('file', file);
-         // returnCallback(error, fileName);
-         // returnCallback(null, 'pizzaShop.jpg');
-         // returnCallback(null, file.originalname);
-         returnCallback(null, Date.now() + '_' + file.originalname);
-      },
-   }),
-});
+// const upload = multer({
+//    // dest: './uploads',
+//    storage: multer.diskStorage({
+//       destination: './uploads',
+//       filename: function (req, file, returnCallback) {
+//          // console.log('file', file);
+//          // returnCallback(error, fileName);
+//          // returnCallback(null, 'pizzaShop.jpg');
+//          // returnCallback(null, file.originalname);
+//          returnCallback(null, Date.now() + '_' + file.originalname);
+//       },
+//    }),
+// });
+
+const upload = require('../middlewares/upload');
 
 /* -------------------------------------------------------------------------- */
 //.. routes/pizza:
@@ -40,11 +42,17 @@ router
    .post(upload.array('image'), pizza.create);
 // .post(upload.any(), pizza.create);
 
+//! FRONT END KISMINDA YAPILMASI GEREKENLER :
+//  <form action="/pizzas" method="POST" enctype="mutipart/form-data">
+//      <input type="file" name="image">
+//  </form>
+//! FRONT END KISMINDA YAPILMASI GEREKENLER
+
 router
    .route('/:id')
    .get(pizza.read)
-   .put(pizza.update)
-   .patch(pizza.update)
+   .put(upload.single('image'), pizza.update)
+   .patch(upload.single('image'), pizza.update)
    .delete(pizza.delete);
 
 /* -------------------------------------------------------------------------- */

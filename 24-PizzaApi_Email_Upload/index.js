@@ -157,6 +157,10 @@ app.all('/', (req, res) => {
    });
 });
 
+//! StaticFile Creating :
+// app.use('/uploads', express.static('./uploads'));
+app.use('/images', express.static('./uploads'));   // URL kismina images yazmamiz lazim.
+
 /* ------------------------------------------------------- */
 
 // errorHandler:
