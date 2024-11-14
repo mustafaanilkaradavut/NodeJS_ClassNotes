@@ -6,7 +6,7 @@
 
 const nodemailer = require('nodemailer');
 
-module.export = function sendMail(to, subject, message) {
+module.exports = function sendMail(to, subject, message) {
    //? GoogleMail (gmail) Connection :
    //__ Google -> AccountHome -> Security -> Two-Step-Verify -> App-Passwords
    const transporter = nodemailer.createTransport({

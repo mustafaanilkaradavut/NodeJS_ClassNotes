@@ -4,7 +4,7 @@
 /* -------------------------------------------------------------------------- */
 
 const User = require('../models/user');
-const senMail = require('../helpers/senMail');
+const sendMail = require('../helpers/sendMail');
 
 module.exports = {
    list: async (req, res) => {
@@ -63,12 +63,12 @@ module.exports = {
       }
       const data = await User.create(req.body);
 
-      senMail(
+      sendMail(
          data.email,
          'Welcome',
          `
             <h1>Welcone</h1>
-            <h2>$(data.username)</h2>
+            <h2>${data.username}</h2>
             <p>Welcome to my page</p>
          `
       );
