@@ -4,6 +4,7 @@
 /* -------------------------------------------------------------------------- */
 
 const User = require('../models/user');
+const senMail = require('../helpers/senMail');
 
 module.exports = {
    list: async (req, res) => {
@@ -61,6 +62,17 @@ module.exports = {
          //   throw customError;
       }
       const data = await User.create(req.body);
+
+      senMail(
+         data.email,
+         'Welcome',
+         `
+            <h1>Welcone</h1>
+            <h2>$(data.username)</h2>
+            <p>Welcome to my page</p>
+         `
+      );
+
       res.status(201).send({
          error: false,
          data,
