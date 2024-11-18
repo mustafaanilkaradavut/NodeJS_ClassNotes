@@ -13,12 +13,12 @@ module.exports = {
             #swagger.tags = ["Users"]
             #swagger.summary = "List Users"
             #swagger.description = `
-                You can send query with endpoint for search[], sort[], page and limit.
-                <ul> Examples:
-                    <li>URL/?<b>search[field1]=value1&search[field2]=value2</b></li>
-                    <li>URL/?<b>sort[field1]=1&sort[field2]=-1</b></li>
-                    <li>URL/?<b>page=2&limit=1</b></li>
-                </ul>
+               You can send query with endpoint for search[], sort[], page and limit.
+               <ul> Examples:
+                  <li>URL/?<b>search[field1]=value1&search[field2]=value2</b></li>
+                  <li>URL/?<b>sort[field1]=1&sort[field2]=-1</b></li>
+                  <li>URL/?<b>page=2&limit=1</b></li>
+               </ul>
             `
         */
 
@@ -31,7 +31,7 @@ module.exports = {
 
       res.status(200).send({
          error: false,
-         details: await res.getModelListDetails(User),
+         details: await res.getModelListDetails(User, customFilter),
          data,
       });
    },
@@ -41,11 +41,11 @@ module.exports = {
             #swagger.tags = ["Users"]
             #swagger.summary = "Create User"
             #swagger.parameters['body'] = {
-                in: 'body',
-                required: true,
-                schema: {
+               in: 'body',
+               required: true,
+               schema: {
                   $ref:"#/definitions/User"
-                }
+               }
             }
         */
       passwordValidation(req?.body?.password);
@@ -93,11 +93,11 @@ module.exports = {
             #swagger.tags = ["Users"]
             #swagger.summary = "Update User"
             #swagger.parameters['body'] = {
-                in: 'body',
-                required: true,
-                schema: {
+               in: 'body',
+               required: true,
+               schema: {
                   $ref:"#/definitions/User"
-                }
+               }
             }
         */
       passwordValidation(req.body?.password);
@@ -118,7 +118,6 @@ module.exports = {
       } else if (req.user.isStaff) {
          customFilter = { _id: req.params.id, isAdmin: false };
       }
-
 
       //__ Yetkisiz kullanıcının başka bir kullanıcıyı yönetmesini engelle (sadece kendi verileri):
       // if (!req.user.isAdmin) req.params.id = req.user._id;
