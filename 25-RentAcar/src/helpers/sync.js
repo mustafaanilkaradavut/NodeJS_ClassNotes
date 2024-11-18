@@ -4,8 +4,10 @@
 ------------------------------------------------------- */
 // sync():
 
+//.. helpers icerisinde bulunan kullanicilarimizi calistirmak icin buradaki return'u yorum satirina almamiz ve sonrasinda index'teki sync uzantimizi aktif hale getirmemiz gerek.
+
 module.exports = async function () {
-  return null;
+  // return null;
   /* REMOVE DATABASE */
   const { mongoose } = require("../configs/dbConnection");
   await mongoose.connection.dropDatabase();
