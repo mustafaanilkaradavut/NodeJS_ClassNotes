@@ -22,7 +22,12 @@ module.exports = {
             `
         */
 
-      const data = await res.getModelList(User);
+      let customFilter = { isAdmin: false };
+      if (req.user.isAdmin) {
+         customFilter = {};
+         // let customFilter.isAdmin
+      }
+      const data = await res.getModelList(User, customFilter);
 
       res.status(200).send({
          error: false,
@@ -44,6 +49,10 @@ module.exports = {
             }
         */
       passwordValidation(req?.body?.password);
+      req.body.isAdmin = false;
+      req.body.isStaff = false;
+      // req.body.isStaff =req.user.isAdmin? req.body.isStaff || false;
+
       const data = await User.create(req.body);
 
       res.status(201).send({
@@ -64,7 +73,13 @@ module.exports = {
       // }
       // const data = await User.findOne({ _id: req.params.id })
 
-      const id = req.user.isAdmin ? req.params.id : req.user.id;
+      // const id = req.user.isAdmin ? req.params.id : req.user.id;
+
+      if (req.user.isAdmin) {
+         customFilter = { _id: req.params.id };
+      } else if (req.user.isStaff) {
+         customFilter = { _id: req.params.id, isAdmin: false };
+      }
       const data = await User.findOne({ _id: id });
 
       res.status(200).send({
@@ -85,10 +100,29 @@ module.exports = {
                 }
             }
         */
+      passwordValidation(req.body?.password);
+      delete req.body.isAdmin;
+      if (!req.user.isAdmin) {
+         delete req.body.isStaff;
+      }
+      // if ((req.body.isStaff || req.body.isAdmin) && !req.user.isAdmin ) {
+      //   throw new CustomError(
+      //     "You are not authorized to set admin or staff privileges.",
+      //     403,
+      //   );
+      // }
 
-      //? Yetkisiz kullanıcının başka bir kullanıcıyı yönetmesini engelle (sadece kendi verileri):
-      if (!req.user.isAdmin) req.params.id = req.user._id;
-      const data = await User.updateOne({ _id: req.params.id }, req.body, {
+      let customFilter = { _id: req.user.id };
+      if (req.user.isAdmin) {
+         customFilter = { _id: req.params.id };
+      } else if (req.user.isStaff) {
+         customFilter = { _id: req.params.id, isAdmin: false };
+      }
+
+
+      //__ Yetkisiz kullanıcının başka bir kullanıcıyı yönetmesini engelle (sadece kendi verileri):
+      // if (!req.user.isAdmin) req.params.id = req.user._id;
+      const data = await User.updateOne(customFilter, req.body, {
          runValidators: true,
       });
 
@@ -101,9 +135,9 @@ module.exports = {
 
    delete: async (req, res) => {
       /*
-            #swagger.tags = ["Users"]
-            #swagger.summary = "Delete User"
-        */
+               #swagger.tags = ["Users"]
+               #swagger.summary = "Delete User"
+           */
 
       const data = await User.deleteOne({ _id: req.params.id });
 
