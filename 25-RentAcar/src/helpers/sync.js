@@ -27,15 +27,15 @@ module.exports = async function () {
 
    //.. Asagida cars mock datasini eklemek icin asagidaki kodlarimizi yorum satirindan kaldiririz. return null ifadesini yoruma aliriz. indexte sync calistiririz.
 
-   try {
-      const cars = require('../mokeData/car.json');
-      const Car = require('../models/car');
-      await Car.insertMany(cars);
-      console.log('cars added');
-   } catch (error) {
-      console.log("cars couldn't add");
-      console.log(error);
-   }
+   // try {
+   //    const cars = require('../mokeData/car.json');
+   //    const Car = require('../models/car');
+   //    await Car.insertMany(cars);
+   //    console.log('cars added');
+   // } catch (error) {
+   //    console.log("cars couldn't add");
+   //    console.log(error);
+   // }
    try {
       const reservations = require('../mokeData/reservation.json');
       const Reservation = require('../models/reservation');

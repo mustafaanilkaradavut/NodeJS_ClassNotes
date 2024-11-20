@@ -62,7 +62,7 @@ app.use(require('./src/routes'));
 
 /* ------------------------------------------------------- */
 
-//not Found middleware
+// not Found middleware
 app.all('*', async (req, res) => {
    res.status(404).send({
       error: true,

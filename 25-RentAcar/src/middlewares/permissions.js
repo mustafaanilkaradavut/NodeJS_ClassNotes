@@ -23,6 +23,7 @@ module.exports = {
             403
          );
       }
+      next();
    },
    isStaffOrisAdmin: (req, res, next) => {
       if (!(req.user.isAdmin || req.user.isStaff)) {
