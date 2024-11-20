@@ -21,7 +21,7 @@ module.exports = {
                </ul>
             `
         */
-      //yetkisine göre revervasyonlara erişim ver
+      //__ yetkisine göre revervasyonlara erişim ver
       let customFilter = {};
       if (!req.user.isAdmin && !req.user.isStaff) {
          customFilter = { userId: req.user.id };
@@ -48,7 +48,7 @@ module.exports = {
                }
             }
         */
-      // "Admin-staf değilse" veya "UserId göndermişmemişse" req.user'dan al:
+      //__ "Admin-staf değilse" veya "UserId göndermişmemişse" req.user'dan al:
       if (!req.user.isAdmin && !req.user.isStaff) {
          req.body.userId = req.user.id;
       } else if (!req.body?.userId) {
@@ -103,7 +103,7 @@ module.exports = {
       if (!req.user.isAdmin) {
          delete req.body.userId;
       }
-      //güncelleyen kişi giriş yapmış kullanıcı
+      //__ güncelleyen kişi giriş yapmış kullanıcı
       req.body.updatedId = req.user.id;
 
       const data = await Reservation.updateOne(

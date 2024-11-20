@@ -62,6 +62,14 @@ app.use(require('./src/routes'));
 
 /* ------------------------------------------------------- */
 
+//not Found middleware
+app.all('*', async (req, res) => {
+   res.status(404).send({
+      error: true,
+      message: 'Route not available',
+   });
+});
+
 // errorHandler:
 app.use(require('./src/middlewares/errorHandler'));
 
