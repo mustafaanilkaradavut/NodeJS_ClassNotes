@@ -6,9 +6,12 @@
 
 const express = require('express');
 const app = express();
+const cors = require('cors');
 
 /* ------------------------------------------------------- */
 // Required Modules:
+
+app.use(cors());
 
 // envVariables to process.env:
 require('dotenv').config();
