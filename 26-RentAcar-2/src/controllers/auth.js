@@ -36,12 +36,12 @@ module.exports = {
             if (user.isActive) {
                /* TOKEN */
 
-               let tokenData = await Token.findOne({ userId: user._id });
+               let tokenData = await Token.findOne({ userId: user.id });
 
                if (!tokenData) {
-                  const tokenKey = passwordEncrypt(user._id + Date.now());
+                  const tokenKey = passwordEncrypt(user.id + Date.now());
                   tokenData = await Token.create({
-                     userId: user._id,
+                     userId: user.id,
                      token: tokenKey,
                   });
                }
@@ -59,7 +59,7 @@ module.exports = {
                );
                // console.log('accessToken', accessToken)
 
-               const refreshData = { id: user._id, password: user.password }; // Checkable data.
+               const refreshData = { id: user.id, password: user.password }; // Checkable data.
                const refreshTime = '3d';
                const refreshToken = jwt.sign(
                   refreshData,
@@ -121,7 +121,7 @@ module.exports = {
             const { id, password } = jwtData;
 
             if (id && password) {
-               const user = await User.findOne({ _id: id });
+               const user = await User.findOne({ id: id });
 
                if (user && user.password == password) {
                   if (user.isActive) {
@@ -158,7 +158,7 @@ module.exports = {
          res.errorStatusCode = 401;
          throw new Error('Please enter token.refresh');
       }
-   },
+   }, 
 
    logout: async (req, res) => {
       /*
