@@ -4,7 +4,7 @@
 /* -------------------------------------------------------------------------- */
 
 class CustomError extends Error {
-   constructor(mesage, statusCode) {
+   constructor(message, statusCode) {
       super(message);
       this.statusCode = statusCode || 500;
    }

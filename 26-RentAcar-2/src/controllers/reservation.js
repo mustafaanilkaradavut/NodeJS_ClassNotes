@@ -28,7 +28,7 @@ module.exports = {
       //__ yetkisine göre revervasyonlara erişim ver
       let customFilter = {};
       if (!req.user.isAdmin && !req.user.isStaff) {
-         customFilter = { userId: req.user.id };
+         customFilter = { userId: req.user._id };
       }
 
       const data = await res.getModelList(Reservation, customFilter);
@@ -47,17 +47,18 @@ module.exports = {
 
    create: async (req, res) => {
       /*
-            #swagger.tags = ["Reservations"]
-            #swagger.summary = "Create Reservation"
-            #swagger.parameters['body'] = {
-               in: 'body',
-               required: true,
-               schema: {
-                  $ref:"#/definitions/Reservation"
-               }
-            }
-        */
-      //__ "Admin-staf değilse" veya "UserId göndermişmemişse" req.user'dan al:
+              #swagger.tags = ["Reservations"]
+              #swagger.summary = "Create Reservation"
+              #swagger.parameters['body'] = {
+                  in: 'body',
+                  required: true,
+                  schema: {
+                     $ref:"#/definitions/Reservation"
+                  }
+              }
+          */
+
+      //.. "Admin-staf değilse" veya "UserId göndermişmemişse" req.user'dan al:
 
       if (!req.user.isAdmin && !req.user.isStaff) {
          req.body.userId = req.user.id;
@@ -66,9 +67,9 @@ module.exports = {
       }
 
       //.. createdId ve updatedId verisini req.user'dan al:
-
-      req.body.createdId = req.user.id;
-      req.body.updatedId = req.user.id;
+      req.body.userId = req.user._id;
+      req.body.createdId = req.user._id;
+      req.body.updatedId = req.user._id;
 
       const [totalDays, starDate, endDate] = dateValidation(
          req.body?.startDate,
@@ -82,7 +83,6 @@ module.exports = {
          startDate: { $lte: req.body.endDate },
          endDate: { $gte: req.body.startDate },
       });
-
       //.. kiralanmışsa rezervasyona izin verme
 
       if (isCarReserved) {
@@ -91,7 +91,6 @@ module.exports = {
             400
          );
       }
-
       //.. kullanıcının bu tarihlerde rezervasyonu var mı?
 
       const userReservationInDates = await Reservation.findOne({
@@ -108,14 +107,37 @@ module.exports = {
             400
          );
       }
-      //.. Bir günlük araç kiralaam bedelini öğren
-
-      const dailyCost = await Car.findOne(
+      //.. Bir günlük araç kiralama bedelini öğren
+      
+      const car = await Car.findOne(
          { _id: req.body.carId },
-         { _id: 0, pricePerDay: 1 }
-      ).then((car) => Number(car.pricePerDay));
+         { pricePerDay: 1 } // Sadece pricePerDay alanını getir
+      );
 
-      req.body.amount = dailyCost * totalDays;
+      if (!car) {
+         return res
+            .status(404)
+            .send({ error: true, message: 'Car not found.' });
+      }
+
+      // Günlük maliyeti al ve toplam ücreti hesapla
+      const dailyCost = Number(car.pricePerDay);
+
+      // Tarih farkını hesapla
+      const totalRentalDays = Math.ceil(
+         (new Date(req.body.endDate) - new Date(req.body.startDate)) /
+            (1000 * 60 * 60 * 24)
+      );
+
+      // Loglama: Kontrol amaçlı gün sayısı ve günlük maliyet
+      console.log(`Daily Cost: ${dailyCost}`);
+      console.log(`Total Rental Days: ${totalRentalDays}`);
+
+      // Toplam ücreti hesapla
+      req.body.amount = dailyCost * totalRentalDays;
+
+      // Loglama: Hesaplanan toplam ücret
+      // console.log(`Calculated Amount: ${req.body.amount}`);
 
       const data = await Reservation.create(req.body);
 
@@ -132,10 +154,10 @@ module.exports = {
         */
       let customFilter = {};
       if (!req.user.isAdmin && !req.user.isStaff) {
-         customFilter = { userId: req.user.id };
+         customFilter = { userId: req.user._id };
       }
       const data = await Reservation.findOne({
-         _id: req.params.id,
+         _id: req.params._id,
          ...customFilter,
       }).populate([
          { path: 'userId', select: 'username firstName lastName' },

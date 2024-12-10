@@ -65,6 +65,14 @@ const UserSchema = new mongoose.Schema(
    { collection: 'users', timestamps: true }
 );
 
+UserSchema.set('toJSON', {
+   transform: (doc, ret) => {
+      ret.id = ret._id;
+      delete ret._id;
+      delete ret.__v;
+   },
+});
+
 UserSchema.plugin(uniqueValidator, {
    message: 'This {PATH} is exist',
 });

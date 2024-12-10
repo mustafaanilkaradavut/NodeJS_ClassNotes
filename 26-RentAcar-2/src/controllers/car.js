@@ -112,7 +112,7 @@ module.exports = {
       // updatedId verisini req.user'dan al:
       req.body.updatedId = req.user.id;
 
-      const data = await Car.updateOne({ _id: req.prams.id }, req.body, {
+      const data = await Car.updateOne({ _id: req.params.id }, req.body, {
          runValidators: true,
       });
 
