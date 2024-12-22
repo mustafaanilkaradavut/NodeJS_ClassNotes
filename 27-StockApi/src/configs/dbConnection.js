@@ -1,20 +1,24 @@
-"use strict"
-/* -------------------------------------------------------
-    | FULLSTACK TEAM | NODEJS / EXPRESS |
-------------------------------------------------------- */
-// MongoDB Connection:
+'use strict';
 
-const mongoose = require('mongoose')
+/* -------------------------------------------------------------------------- */
+//-                 | FULLSTACK TEAM | NODEJS / EXPRESS |                     */
+/* -------------------------------------------------------------------------- */
+
+
+//! MongoDB Connection:
+
+const mongoose = require('mongoose');
 
 const dbConnection = function () {
-    // Connect:
-    mongoose.connect(process.env.MONGODB, { useNewUrlParser: true, useUnifiedTopology: true })
-        .then(() => console.log('* DB Connected * '))
-        .catch((err) => console.log('* DB Not Connected * ', err))
-}
+   // Connect:
+   mongoose
+      .connect(process.env.MONGODB)
+      .then(() => console.log('* DB Connected *'))
+      .catch((err) => console.log('* DB Not Connected *', err));
+};
 
 /* ------------------------------------------------------- */
 module.exports = {
-    mongoose,
-    dbConnection
-} 
+   mongoose,
+   dbConnection,
+};
