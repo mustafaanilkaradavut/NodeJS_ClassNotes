@@ -1,25 +1,25 @@
-"use strict"
-/* -------------------------------------------------------
-    | FULLSTACK TEAM | NODEJS / EXPRESS |
-------------------------------------------------------- */
-const router = require('express').Router()
+'use strict';
+/* -------------------------------------------------------------------------- */
+//-                 | FULLSTACK TEAM | NODEJS / EXPRESS |                     */
+/* -------------------------------------------------------------------------- */
+
+const router = require('express').Router();
 /* ------------------------------------------------------- */
 // routes/category:
 
-const category = require('../controllers/category')
+const category = require('../controllers/category');
 
 // URL: /categorys
 
-router.route('/')
-    .get(category.list)
-    .post(category.create)
+router.route('/').get(category.list).post(category.create);
 
-router.route('/:id')
-    .get(category.read)
-    .put(category.update)
-    .patch(category.update)
-    .delete(category.delete)
+router
+   .route('/:id')
+   .get(category.read)
+   .put(category.update)
+   .patch(category.update)
+   .delete(category.delete);
 
 /* ------------------------------------------------------- */
 // Exports:
-module.exports = router
+module.exports = router;
