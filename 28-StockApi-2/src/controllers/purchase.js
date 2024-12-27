@@ -25,6 +25,7 @@ module.exports = {
         */
 
         const data = await res.getModelList(Purchase, {}, ['userId', 'firmId', 'brandId', 'productId'])
+        // Extra ayar icin object icinde yazmamiz gerekmektedir.
 
         res.status(200).send({
             error: false,
