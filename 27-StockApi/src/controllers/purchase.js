@@ -1,9 +1,8 @@
-'use strict';
-/* -------------------------------------------------------------------------- */
-//-                 | FULLSTACK TEAM | NODEJS / EXPRESS |                     */
-/* -------------------------------------------------------------------------- */
-
-//! Purchase Controllers:
+"use strict"
+/* -------------------------------------------------------
+    | FULLSTACK TEAM | NODEJS / EXPRESS |
+------------------------------------------------------- */
+// Purchase Controllers:
 
 const Purchase = require('../models/purchase')
 
